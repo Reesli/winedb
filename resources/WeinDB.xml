@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WeinDB xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="WeinSchema.xsd">
+    <Wein WeinID="1">
+        <Name>Moscato D'Asti DOCG</Name>
+        <Hersteller>Azienda Vitivinicola Piazzo</Hersteller>
+        <Land>Italien</Land>
+        <Region>Piemont</Region>
+        <Weinfarbe>Weiss</Weinfarbe>
+        <Traubensorte>Moscato</Traubensorte>
+        <Jahrgang>2014</Jahrgang>
+        <Anzahl>4</Anzahl>
+        <Punkte>8</Punkte>
+        <TrinkenAb>2015</TrinkenAb>
+        <TrinkenBis>2018</TrinkenBis>
+    </Wein>
+    <Wein WeinID="2">
+        <Name>Moscato D'Asti DOCG</Name>
+        <Hersteller>Cantina Vallebelbo</Hersteller>
+        <Land>Italien</Land>
+        <Region>Piemont</Region>
+        <Weinfarbe>Weiss</Weinfarbe>
+        <Traubensorte>Moscato</Traubensorte>
+        <Jahrgang>2014</Jahrgang>
+        <Anzahl>1</Anzahl>
+        <Punkte>5</Punkte>
+        <TrinkenAb>2015</TrinkenAb>
+        <TrinkenBis>2018</TrinkenBis>
+    </Wein>
+    <Wein WeinID="3">
+        <Name>Moscato D'Asti DOCG</Name>
+        <Hersteller>Cantina Tre Secoli</Hersteller>
+        <Land>Italien</Land>
+        <Region>Piemont</Region>
+        <Weinfarbe>Weiss</Weinfarbe>
+        <Traubensorte>Moscato</Traubensorte>
+        <Jahrgang>2014</Jahrgang>
+        <Anzahl>1</Anzahl>
+        <Punkte>5</Punkte>
+        <TrinkenAb>2015</TrinkenAb>
+        <TrinkenBis>2018</TrinkenBis>
+    </Wein>
+    <Wein WeinID="4">
+        <Name>Neunforn AOC</Name>
+        <Hersteller>Junker Benedikt</Hersteller>
+        <Land>Schweiz</Land>
+        <Region>Iselisberg</Region>
+        <Weinfarbe>Weiss</Weinfarbe>
+        <Traubensorte>Müller Thurgau</Traubensorte>
+        <Jahrgang>2009</Jahrgang>
+        <Anzahl>1</Anzahl>
+        <Punkte>5</Punkte>
+        <TrinkenAb/>
+        <TrinkenBis/>
+    </Wein>
+    <Wein WeinID="5">
+        <Name>Iselisberger Schönherbst</Name>
+        <Hersteller>Martin Müller</Hersteller>
+        <Land>Schweiz</Land>
+        <Region>Iselisberg</Region>
+        <Weinfarbe>Rosé</Weinfarbe>
+        <Traubensorte>N/A</Traubensorte>
+        <Jahrgang>2010</Jahrgang>
+        <Anzahl>1</Anzahl>
+        <Punkte>5</Punkte>
+        <TrinkenAb/>
+        <TrinkenBis/>
+    </Wein>
+    <Wein WeinID="6">
+        <Name>Vino Rosso Amabile Lambrusco</Name>
+        <Hersteller>Cantine Riunite</Hersteller>
+        <Land>Italien</Land>
+        <Region>Emilia R.</Region>
+        <Weinfarbe>Rot</Weinfarbe>
+        <Traubensorte>Lambrusco</Traubensorte>
+        <Jahrgang>2015</Jahrgang>
+        <Anzahl>3</Anzahl>
+        <Punkte>5</Punkte>
+        <TrinkenAb>2015</TrinkenAb>
+        <TrinkenBis>2017</TrinkenBis>
+    </Wein>
+    <Wein WeinID="7">
+        <Name>Nabucco Vino IGT</Name>
+        <Hersteller>Monte Delle Vigne</Hersteller>
+        <Land>Italien</Land>
+        <Region>Emilia R.</Region>
+        <Weinfarbe>Rot</Weinfarbe>
+        <Traubensorte>Merlot, Barbera</Traubensorte>
+        <Jahrgang>2011</Jahrgang>
+        <Anzahl>4</Anzahl>
+        <Punkte>8</Punkte>
+        <TrinkenAb>2011</TrinkenAb>
+        <TrinkenBis>2018</TrinkenBis>
+    </Wein>
+    <Wein WeinID="8">
+        <Name>Barolo DOCG Sori Paradiso</Name>
+        <Hersteller>Tenuta Cappallotto</Hersteller>
+        <Land>Italien</Land>
+        <Region>Piemont</Region>
+        <Weinfarbe>Rot</Weinfarbe>
+        <Traubensorte>Nebbiolo</Traubensorte>
+        <Jahrgang>2009</Jahrgang>
+        <Anzahl>1</Anzahl>
+        <Punkte>5</Punkte>
+        <TrinkenAb>2014</TrinkenAb>
+        <TrinkenBis>2018</TrinkenBis>
+    </Wein>
+    <Wein WeinID="9">
+        <Name>Merlot Trentino DOC</Name>
+        <Hersteller>Castel Firmian</Hersteller>
+        <Land>Italien</Land>
+        <Region>Trentino</Region>
+        <Weinfarbe>Rot</Weinfarbe>
+        <Traubensorte>Merlot</Traubensorte>
+        <Jahrgang>2009</Jahrgang>
+        <Anzahl>0</Anzahl>
+        <Punkte>5</Punkte>
+        <TrinkenAb>2009</TrinkenAb>
+        <TrinkenBis>2013</TrinkenBis>
+    </Wein>
+    <Wein WeinID="10">
+        <Name>La Vite Lucente</Name>
+        <Hersteller>Luce della Vite</Hersteller>
+        <Land>Italien</Land>
+        <Region>Toscana</Region>
+        <Weinfarbe>Rot</Weinfarbe>
+        <Traubensorte>75% Merlot, 
+25% Sangiovese</Traubensorte>
+        <Jahrgang>2011</Jahrgang>
+        <Anzahl>1</Anzahl>
+        <Punkte>5</Punkte>
+        <TrinkenAb>2014</TrinkenAb>
+        <TrinkenBis>2021</TrinkenBis>
+    </Wein>
+    <Wein WeinID="11">
+        <Name>Hallauer Spätauslese</Name>
+        <Hersteller>Wein-Kellerei Rahm</Hersteller>
+        <Land>Schweiz</Land>
+        <Region>Schaffhausen</Region>
+        <Weinfarbe>Rot</Weinfarbe>
+        <Traubensorte>Pinot Noir</Traubensorte>
+        <Jahrgang>2011</Jahrgang>
+        <Anzahl>1</Anzahl>
+        <Punkte>5</Punkte>
+        <TrinkenAb>2011</TrinkenAb>
+        <TrinkenBis>2016</TrinkenBis>
+    </Wein>
+    <Wein WeinID="12">
+        <Name>Brunello di Montalcino</Name>
+        <Hersteller>Borgovecchio</Hersteller>
+        <Land>Italien</Land>
+        <Region>Toscana</Region>
+        <Weinfarbe>Rot</Weinfarbe>
+        <Traubensorte>Sangiovese</Traubensorte>
+        <Jahrgang>2010</Jahrgang>
+        <Anzahl>7</Anzahl>
+        <Punkte>9</Punkte>
+        <TrinkenAb>2016</TrinkenAb>
+        <TrinkenBis>2018</TrinkenBis>
+    </Wein>
+    <Wein WeinID="13">
+        <Name>Brunello di Montalcino</Name>
+        <Hersteller>Borgovecchio</Hersteller>
+        <Land>Italien</Land>
+        <Region>Toscana</Region>
+        <Weinfarbe>Rot</Weinfarbe>
+        <Traubensorte>Sangiovese</Traubensorte>
+        <Jahrgang>2008</Jahrgang>
+        <Anzahl>2</Anzahl>
+        <Punkte>9</Punkte>
+        <TrinkenAb>2014</TrinkenAb>
+        <TrinkenBis>2016</TrinkenBis>
+    </Wein>
+    <Wein WeinID="14">
+        <Name>Casillero del Diablo</Name>
+        <Hersteller>Concha y Toro</Hersteller>
+        <Land>Chile</Land>
+        <Region>Maipo Valley</Region>
+        <Weinfarbe>Rot</Weinfarbe>
+        <Traubensorte>Cabernet Sauvignon,
+Syra</Traubensorte>
+        <Jahrgang>2011</Jahrgang>
+        <Anzahl>2</Anzahl>
+        <Punkte>5</Punkte>
+        <TrinkenAb>2011</TrinkenAb>
+        <TrinkenBis>2016</TrinkenBis>
+    </Wein>
+    <Wein WeinID="15">
+        <Name>Sagana</Name>
+        <Hersteller>Cusumano</Hersteller>
+        <Land>Italien</Land>
+        <Region>Sicilia</Region>
+        <Weinfarbe>Rot</Weinfarbe>
+        <Traubensorte>Nero D'Avola</Traubensorte>
+        <Jahrgang>2008</Jahrgang>
+        <Anzahl>3</Anzahl>
+        <Punkte>7</Punkte>
+        <TrinkenAb>2016</TrinkenAb>
+        <TrinkenBis>2020</TrinkenBis>
+    </Wein>
+    <Wein WeinID="16">
+        <Name>Primitivo di Manduria DOP</Name>
+        <Hersteller>Feudi di San Marzano</Hersteller>
+        <Land>Italien</Land>
+        <Region>Apulien</Region>
+        <Weinfarbe>Rot</Weinfarbe>
+        <Traubensorte>Primitivo</Traubensorte>
+        <Jahrgang>2011</Jahrgang>
+        <Anzahl>1</Anzahl>
+        <Punkte>5</Punkte>
+        <TrinkenAb>2015</TrinkenAb>
+        <TrinkenBis>2017</TrinkenBis>
+    </Wein>
+    <Wein WeinID="17">
+        <Name>Amarone della Valpolicella</Name>
+        <Hersteller>Terre Di Cariano</Hersteller>
+        <Land>Italien</Land>
+        <Region>Veneto</Region>
+        <Weinfarbe>Rot</Weinfarbe>
+        <Traubensorte>Corvina, 
+Rondinella Corvinone, Croatina, 
+Oseleta</Traubensorte>
+        <Jahrgang>2009</Jahrgang>
+        <Anzahl>2</Anzahl>
+        <Punkte>9</Punkte>
+        <TrinkenAb>2020</TrinkenAb>
+        <TrinkenBis>2030</TrinkenBis>
+    </Wein>
+    <Wein WeinID="18">
+        <Name>Rancia Chianti Classico Riserva</Name>
+        <Hersteller>Felsina</Hersteller>
+        <Land>Italien</Land>
+        <Region>Toscana</Region>
+        <Weinfarbe>Rot</Weinfarbe>
+        <Traubensorte>Sangiovese</Traubensorte>
+        <Jahrgang>2009</Jahrgang>
+        <Anzahl>3</Anzahl>
+        <Punkte>7</Punkte>
+        <TrinkenAb>2016</TrinkenAb>
+        <TrinkenBis>2025</TrinkenBis>
+    </Wein>
+    <Wein WeinID="19">
+        <Name>Grand Barossa Shiraz</Name>
+        <Hersteller>Château Tanunda</Hersteller>
+        <Land>Australien</Land>
+        <Region>Barossa Valley</Region>
+        <Weinfarbe>Rot</Weinfarbe>
+        <Traubensorte>Syrah</Traubensorte>
+        <Jahrgang>2012</Jahrgang>
+        <Anzahl>6</Anzahl>
+        <Punkte>7</Punkte>
+        <TrinkenAb>2015</TrinkenAb>
+        <TrinkenBis>2017</TrinkenBis>
+    </Wein>
+    <Wein WeinID="20">
+        <Name>Brunello di Montalcino 150cl</Name>
+        <Hersteller>Castello Banfi</Hersteller>
+        <Land>Italien</Land>
+        <Region>Toscana</Region>
+        <Weinfarbe>Rot</Weinfarbe>
+        <Traubensorte>Sangiovese</Traubensorte>
+        <Jahrgang>2009</Jahrgang>
+        <Anzahl>1</Anzahl>
+        <Punkte>9</Punkte>
+        <TrinkenAb>2015</TrinkenAb>
+        <TrinkenBis>2021</TrinkenBis>
+    </Wein>
+    <Wein WeinID="21">
+        <Name>Salice Salentino DOP</Name>
+        <Hersteller>Feudo di Santa Croce</Hersteller>
+        <Land>Italien</Land>
+        <Region>Apulien</Region>
+        <Weinfarbe>Rot</Weinfarbe>
+        <Traubensorte>Negro Amaro 90%, Malvasia Nera 10%.</Traubensorte>
+        <Jahrgang>2010</Jahrgang>
+        <Anzahl>1</Anzahl>
+        <Punkte>5</Punkte>
+        <TrinkenAb>2014</TrinkenAb>
+        <TrinkenBis>2018</TrinkenBis>
+    </Wein>
+</WeinDB>

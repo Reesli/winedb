@@ -1,0 +1,42 @@
+/* Application styles could go here */
+th {
+    white-space: nowrap;
+}
+
+td {
+    white-space: nowrap;
+}
+
+.sorteTD {
+    white-space: normal;
+}
+
+#content {
+    margin-left: 20px;
+}
+
+#datatable_filter {
+    float: right;
+}
+
+#tableDiv {
+    margin-top: 50px;
+}
+
+#addRow {
+    margin-left: 10px;
+}
+
+#saveDB {
+    margin-left: 10px;
+}
+
+#addWine {
+    margin-right: 10px;
+}
+
+@media (min-width: 1500px) {
+    .container {
+        width: 1470px;
+    }
+}
