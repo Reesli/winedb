@@ -1,4 +1,8 @@
 $(document).ready((function() {
+
+    function getTableData() {
+
+    }
     
     var newRecords = {};
     
@@ -13,7 +17,8 @@ $(document).ready((function() {
         $('#addRow').toggle();
         $('#datatable tr > *:nth-child(1)').toggle();
         $('#test').attr("class", "app:saveTest");
-        saveJSON();
+        $.get("resources/loadData.php");
+        return false;
     });
     
     function createCellValue(newValue, id, classValue) {
@@ -174,12 +179,12 @@ $(document).ready((function() {
     $('.editable').editable('toggleDisabled');
     
     // Sort and Filter
-    $('#datatable').DataTable({
-        "paging":   false,
-        "ordering": true,
-        "order": [[ 4, "asc" ]],
-        "info":     false
-    });
+   // $('#datatable').DataTable({
+    //    "paging":   false,
+    //    "ordering": true,
+     //   "order": [[ 4, "asc" ]],
+    //    "info":     false
+    //});
     
     // Validator AddRow
     $("#wineform").bootstrapValidator({

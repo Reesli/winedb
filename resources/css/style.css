@@ -1,4 +1,5 @@
 /* Application styles could go here */
+body { padding-top: 70px; }
 th {
     white-space: nowrap;
 }
