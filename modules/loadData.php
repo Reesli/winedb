@@ -7,7 +7,7 @@ include ('../resources/eXist.php');
         $db->connect() or die ($db->getError());
 
         $query = '
-		for $record in doc('+"'"+'/db/apps/WineDBxml/resources/WeinDB.xml'+"'"+')//WeinDB/Wein
+		for $record in doc('."'".'/db/apps/WineDBxml/resources/WeinDB.xml'."'".')//WeinDB/Wein
         let $id := $record/@WeinID/string()
         let $name := $record/Name/text()
         let $herst := $record/Hersteller/text()
