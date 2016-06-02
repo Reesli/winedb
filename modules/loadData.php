@@ -45,20 +45,18 @@ include ('../resources/eXist.php');
      	$db->setHighlight(FALSE);
      	$result = $db->xquery($query) or die ($db->getError());
         # Get results
-        
+        $output = "";
                 # Show results
-        $output =  "<p><b>Result of the XQuery:</b></p>";
-        $output .= "<pre>";
         if ( !empty($result["XML"]) )
                 foreach ( $result["XML"] as $xml)
-                        $output .= $xml . "<br />";
-        $output .= "</pre>";
-        print $output;
+                        $output .= $xml;
 
       //  $queryTime = $result["QUERY_TIME"];
       //  $collections = $result["COLLECTIONS"];
 
 
         $db->disconnect() or die ($db->getError());
+
+        return $output
 
 ?>
