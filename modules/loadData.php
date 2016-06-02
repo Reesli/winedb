@@ -37,16 +37,24 @@ include ('../resources/eXist.php');
         </tr>
         ';
 
-        $file = 'query.txt';
+        $file = 'result.index';
 		// Schreibt den Inhalt in die Datei zurück
-		file_put_contents($file, $query);
 
         # XQuery execution
-        //$db->setDebug(TRUE);
-     //   $db->setHighlight(FALSE);
-     //   $result = $db->xquery($query) or die ($db->getError());
+        $db->setDebug(FALSE);
+     	$db->setHighlight(FALSE);
+     	$result = $db->xquery($query) or die ($db->getError());
         # Get results
-     //   $hits = $result["HITS"];
+        
+                # Show results
+        $output =  "<p><b>Result of the XQuery:</b></p>";
+        $output .= "<pre>";
+        if ( !empty($result["XML"]) )
+                foreach ( $result["XML"] as $xml)
+                        $output .= $xml . "<br />";
+        $output .= "</pre>";
+        print $output;
+
       //  $queryTime = $result["QUERY_TIME"];
       //  $collections = $result["COLLECTIONS"];
 
