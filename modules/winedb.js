@@ -17,7 +17,7 @@ $(document).ready((function() {
         $('#addRow').toggle();
         $('#datatable tr > *:nth-child(1)').toggle();
         $('#test').attr("class", "app:saveTest");
-        $.get("resources/loadData.php");
+        $.get("modules/loadData.php");
         return false;
     });
     
