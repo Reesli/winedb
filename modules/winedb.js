@@ -64,7 +64,7 @@ $(document).ready((function() {
       var records;
       $.ajax({
           data: 'test=' + input,
-          url: 'modules/testLoad.php',
+          url: 'modules/loadData.php',
           method: 'POST', // or GET
           success: function(data) {
               console.log(data);
