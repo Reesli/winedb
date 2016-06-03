@@ -24,6 +24,11 @@ $(document).ready((function() {
            { "data": "TrinkenAb" },
            { "data": "TrinkenBis" },
        ],
+       "columnDefs": [ {
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<button class='editButton'>Click!</button>"
+        } ],
      "paging":   false,
      "ordering": true,
      "order": [[ 5, "asc" ]],
