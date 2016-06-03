@@ -11,6 +11,7 @@ $(document).ready((function() {
            "type": "POST"
        },
        "columns": [
+           { "data": "WeinID" },
            { "data": "Weinname" },
            { "data": "Hersteller" },
            { "data": "Herstellungsland" },
