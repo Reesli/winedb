@@ -11,32 +11,38 @@ include ('../resources/eXist.php');
             $db = new eXist();
             if (!$db) {
                 throw new Exception($db->getError());
-            } 
+            }
             # Connect
             $db->connect();
             # XQuery execution
             $db->setDebug(FALSE);
             $db->setHighlight(FALSE);
             $answer = $db->xquery($query);
+            $hits = $answer["HITS"];
             if (!$answer) {
                 throw new Exception($db->getError());
-            } 
+            }
             # Get results
-            $records = "<WeinDB>";
+            $records = "<DB>".
+                "<draw>1</draw>".
+                "<recordsTotal>$hits</recordsTotal>".
+                "<recordsFiltered>$hits</recordsFiltered>".
+                "<data>";
             if ( !empty($answer["XML"]) ) {
                     foreach ( $answer["XML"] as $xml) {
                             $records .= $xml . "\n";
                         }
                     }
-            $records .= "</WeinDB>";
+            $records .= "</data>".
+            "</DB>";
             if ($db->disconnect()) {
                 throw new Exception($db->getError());
             }
             return $records;
-        } 
+        }
         $records;
         try {
-            $records = queryDB($query); 
+            $records = queryDB($query);
         } catch (Exception $e) {
             echo "Error: " . $e->getMessage();
         }
