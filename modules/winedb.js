@@ -1,29 +1,33 @@
 $(document).ready((function() {
 
-    var testTable = "<tr>"+
-                    "<td>{$id}</td>"+
-                    "<td><a href='#' class='editName' data-pk='{$id}'>{$name}</a></td>"+
-                    "<td><a href='#' class='editHerst' data-pk='{$id}'>{$herst}</a></td>"+
-                    "<td><a href='#' class='editLand' data-pk='{$id}'>{$land}</a></td>"+
-                    "<td><a href='#' class='editRegion' data-pk='{$id}'>{$region}</a></td>"+
-                    "<td><a href='#' class='editSelectColor' data-pk='{$id}'>{$weinfarbe}</a></td>"+
-                    "<td class='sorteTD'><a href='#' class='editSorte' data-pk='{$id}'>{$sorte}</a></td>"+
-                    "<td><a href='#' class='editJahr' data-pk='{$id}'>{$jahr}</a></td>"+
-                    "<td><a href='#' class='editAnzahl' data-pk='{$id}'>{$anzahl}</a></td>"+
-                    "<td><a href='#' class='editPunkte' data-pk='{$id}'>{$punkte}</a></td>"+
-                    "<td><a href='#' class='editTrinkenAb' data-pk='{$id}'>{$ab}</a></td>"+
-                    "<td><a href='#' class='editTrinkenBis' data-pk='{$id}'>{$bis}</a></td>"+
-                    "</tr>";
 
-    printTableHeader();
-    printTableBody(getTableFromPHP(testTable));
 
-    var newRecords = {};
-
-    //toggle `popup` / `inline` mode
-    $.fn.editable.defaults.mode = 'popup';
-    $('#datatable tr > *:nth-child(1)').hide();
-
+  // Sort and Filter
+  $('#datatable').DataTable({
+    "processing": true,
+       "serverSide": true,
+       "ajax": {
+           "url": "modules/loadData.php",
+           "type": "POST"
+       },
+       "columns": [
+           { "data": "ID" },
+           { "data": "Weinname" },
+           { "data": "Hersteller" },
+           { "data": "Herstellungsland" },
+           { "data": "Region" },
+           { "data": "Weinfarbe" },
+           { "data": "Jahrgang" },
+           { "data": "Anzahl" },
+           { "data": "Wertung" },
+           { "data": "Trinken ab" },
+           { "data": "Trinken bis" },
+       ], 
+     "paging":   false,
+     "ordering": true,
+     "order": [[ 5, "asc" ]],
+     "info":     false
+  });
     // function button to editable mode
     // enable Edit and AddRow Button
     $('#enable').click(function() {
@@ -60,26 +64,28 @@ $(document).ready((function() {
 
 
     //functions
-    function getTableFromPHP(input) {
-      var records;
+    function printTableFromPHP() {
       $.ajax({
-          data: 'test=' + input,
-          url: 'modules/testLoad.php',
-          method: 'POST', // or GET
+          url: 'modules/loadData.php',
+          method: 'GET', // or GET,
           success: function(data) {
-              console.log(data);
-              records = data;
+              $('#createTableBody').html(data);
+	      makeEditable();
+   	      //toggle `popup` / `inline` mode
+  	      $.fn.editable.defaults.mode = 'popup';
+	      $('#datatable tr > *:nth-child(1)').hide();
+	      $( "#datatable" ).DataTable();
+
           }
       });
-      return records;
     }
 
-    function printTableBody(records) {
-        $('#createTableBody').html(records)
+    function printTableBody(body) {
+        $('#createTableBody').html(body);
     }
 
     function printTableHeader() {
-        var tableHeader = "<th style='display:none;'>ID</th>,"+
+        var tableHeader = "<th>ID</th>,"+
         "<th>Weinname</th>,"+
         "<th>Hersteller</th>,"+
         "<th>Herstellungsland</th>,"+
@@ -162,80 +168,75 @@ $(document).ready((function() {
 
 
     // Single Cell Popup Editable
-    $('.editSelectColor').editable({
-        value: 0,
-        source: [
-              {value: 0, text: 'Rot'},
-              {value: 1, text: 'Weiss'},
-              {value: 2, text: 'Rosé'}
-           ],
-        type: 'select'
-    });
-    $('.editName').editable({
-            type: 'text',
-            url: '/post',
-            title: 'Weinname',
-            validate: function(value) {
-                if($.trim(value) === '') {
-                    return 'This field is required';
-                }
-            },
-            tpl: "<input style='width: 200px'>"});
-    $('.editHerst').editable({
-            type: 'text',
-            url: '/post',
-            title: 'Hersteller',
-            tpl: "<input style='width: 200px'>" });
-    $('.editLand').editable({
-            type: 'text',
-            url: '/post',
-            title: 'Herstellungsland',
-            tpl: "<input style='width: 200px'>" });
-    $('.editRegion').editable({
-            type: 'text',
-            url: '/post',
-            title: 'Region',
-            tpl: "<input style='width: 200px'>" });
-    $('.editSorte').editable({
-            type: 'text',
-            url: '/post',
-            title: 'Weinsorte',
-            tpl: "<input style='width: 200px'>" });
-    $('.editJahr').editable({
-            type: 'number',
-            url: '/post',
-            title: 'Herstellungsjahr',
-            tpl: "<input style='width: 100px'>" });
-    $('.editAnzahl').editable({
-            type: 'number',
-            url: '/post',
-            title: 'Anzahl Flaschen',
-            tpl: "<input style='width: 100px'>" });
-    $('.editPunkte').editable({
-            type: 'number',
-            url: '/post',
-            title: 'Wertungspunkte',
-            tpl: "<input style='width: 75px'>" });
-    $('.editTrinkenAb').editable({
-            type: 'number',
-            url: '/post',
-            title: 'Trinken ab',
-            tpl: "<input style='width: 100px'>" });
-    $('.editTrinkenBis').editable({
-            type: 'number',
-            url: '/post',
-            title: 'Trinken bis',
-            tpl: "<input style='width: 100px'>" });
+    function makeEditable() {
+      $('.editSelectColor').editable({
+          value: 0,
+          source: [
+                {value: 0, text: 'Rot'},
+                {value: 1, text: 'Weiss'},
+                {value: 2, text: 'Rosé'}
+             ],
+          type: 'select'
+      });
+      $('.editName').editable({
+              type: 'text',
+              url: '/post',
+              title: 'Weinname',
+              validate: function(value) {
+                  if($.trim(value) === '') {
+                      return 'This field is required';
+                  }
+              },
+              tpl: "<input style='width: 200px'>"});
+      $('.editHerst').editable({
+              type: 'text',
+              url: '/post',
+              title: 'Hersteller',
+              tpl: "<input style='width: 200px'>" });
+      $('.editLand').editable({
+              type: 'text',
+              url: '/post',
+              title: 'Herstellungsland',
+              tpl: "<input style='width: 200px'>" });
+      $('.editRegion').editable({
+              type: 'text',
+              url: '/post',
+              title: 'Region',
+              tpl: "<input style='width: 200px'>" });
+      $('.editSorte').editable({
+              type: 'text',
+              url: '/post',
+              title: 'Weinsorte',
+              tpl: "<input style='width: 200px'>" });
+      $('.editJahr').editable({
+              type: 'number',
+              url: '/post',
+              title: 'Herstellungsjahr',
+              tpl: "<input style='width: 100px'>" });
+      $('.editAnzahl').editable({
+              type: 'number',
+              url: '/post',
+              title: 'Anzahl Flaschen',
+              tpl: "<input style='width: 100px'>" });
+      $('.editPunkte').editable({
+              type: 'number',
+              url: '/post',
+              title: 'Wertungspunkte',
+              tpl: "<input style='width: 75px'>" });
+      $('.editTrinkenAb').editable({
+              type: 'number',
+              url: '/post',
+              title: 'Trinken ab',
+              tpl: "<input style='width: 100px'>" });
+      $('.editTrinkenBis').editable({
+              type: 'number',
+              url: '/post',
+              title: 'Trinken bis',
+              tpl: "<input style='width: 100px'>" });
 
-    $('.editable').editable('toggleDisabled');
+      $('.editable').editable('toggleDisabled');
+  }
 
-    // Sort and Filter
-   // $('#datatable').DataTable({
-    //    "paging":   false,
-    //    "ordering": true,
-     //   "order": [[ 4, "asc" ]],
-    //    "info":     false
-    //});
 
     // Validator AddRow
     $("#wineform").bootstrapValidator({
