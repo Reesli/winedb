@@ -61,16 +61,14 @@ $(document).ready((function() {
 
     //functions
     function getTableFromPHP() {
-      var records;
       $.ajax({
           url: 'modules/loadData.php',
           method: 'POST', // or GET
           success: function(data) {
               console.log(data);
-              records = data;
+              return data;
           }
       });
-      return records;
     }
 
     function printTableBody(body) {
