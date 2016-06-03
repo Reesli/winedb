@@ -70,6 +70,6 @@ include ('../resources/eXist.php');
             <td><a href="#" class="editTrinkenAb" data-pk="{$id}">{$ab}</a></td>
             <td><a href="#" class="editTrinkenBis" data-pk="{$id}">{$bis}</a></td>
         </tr>';
-        echo json_encode($output);
+        echo $_POST['test'];
 
 ?>

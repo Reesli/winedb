@@ -16,7 +16,7 @@ $(document).ready((function() {
                     "</tr>";
 
     printTableHeader();
-    printTableBody(getTableFromPHP());
+    printTableBody(getTableFromPHP(testTable));
 
     var newRecords = {};
 
@@ -30,10 +30,6 @@ $(document).ready((function() {
         $('.editable').editable('toggleDisabled');
         $('#addRow').toggle();
         $('#datatable tr > *:nth-child(1)').toggle();
-        $.get("modules/loadData.php", function(data) {
-        // use the result
-
-        });
         return false;
     });
 
@@ -64,9 +60,16 @@ $(document).ready((function() {
 
 
     //functions
-    function getTableFromPHP() {
-      var records = $.get('modules/loadData.php', function(data) {
-        return data;
+    function getTableFromPHP(input) {
+      var records;
+      $.ajax({
+          data: 'test=' + input,
+          url: 'modules/loadData.php',
+          method: 'POST', // or GET
+          success: function(data) {
+              console.log(data);
+              records = data;
+          }
       });
       return records;
     }
