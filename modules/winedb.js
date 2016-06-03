@@ -19,10 +19,14 @@ $(document).ready((function() {
         $('#test').attr("class", "app:saveTest");
         $.get("modules/loadData.php", function(data) {
         // use the result
-            alert(data);
+            printTable(data);
         });
         return false;
     });
+
+    function printTable(data) {
+        
+    }
     
     function createCellValue(newValue, id, classValue) {
         return '<a href="#" class="'+classValue+' editable editable-click" data-pk="'+id+'">'+newValue+'</a>';
