@@ -1,13 +1,10 @@
 <?php
 include ('../resources/eXist.php');
 
-		$db = new eXist();
 
-        # Connect
-        $db->connect() or die ($db->getError());
 
         $query = '
-		for $record in doc('."'".'/db/apps/WineDBxml/resources/WeinDB.xml'."'".')//WeinDB/Wein
+        for $record in doc('."'".'/db/apps/WineDBxml/resources/WeinDB.xml'."'".')//WeinDB/Wein
         let $id := $record/@WeinID/string()
         let $name := $record/Name/text()
         let $herst := $record/Hersteller/text()
@@ -36,27 +33,43 @@ include ('../resources/eXist.php');
             <td><a href="#" class="editTrinkenBis" data-pk="{$id}">{$bis}</a></td>
         </tr>
         ';
+        // Schreibt den Inhalt in die Datei zurück
+        $output;
+        function queryDB($query) {
+            $db = new eXist();
+            if (!$db) {
+                throw new Exception($db->getError());
+            } 
+            # Connect
+            $db->connect();
+            # XQuery execution
+            $db->setDebug(FALSE);
+            $db->setHighlight(FALSE);
+            $answer = $db->xquery($query);
+            if (!$answer) {
+                throw new Exception($db->getError());
+            } 
 
-        $file = 'result.index';
-		// Schreibt den Inhalt in die Datei zurück
+            # Get results
+            if ( !empty($answer["XML"]) ) {
+                    foreach ( $answer["XML"] as $xml) {
+                            $records .= $xml;
+                        }
+                    }
 
-        # XQuery execution
-        $db->setDebug(FALSE);
-     	$db->setHighlight(FALSE);
-     	$result = $db->xquery($query) or die ($db->getError());
-        # Get results
-        $output = "";
-                # Show results
-        if ( !empty($result["XML"]) )
-                foreach ( $result["XML"] as $xml)
-                        $output .= $xml;
+            if ($db->disconnect()) {
+                throw new Exception($db->getError());
+            }
+            return $records;
+        } 
 
-      //  $queryTime = $result["QUERY_TIME"];
-      //  $collections = $result["COLLECTIONS"];
+        try {
+            $output = queryDB($query);
+        } catch (Exception $e) {
+            echo "Error: " . $e->getMessage();
+        }
 
-
-        $db->disconnect() or die ($db->getError());
-				$output =   '<tr>
+            $outputTest =   '<tr>
             <td>{$id}</td>
             <td><a href="#" class="editName" data-pk="{$id}">{$name}</a></td>
             <td><a href="#" class="editHerst" data-pk="{$id}">{$herst}</a></td>
@@ -70,6 +83,6 @@ include ('../resources/eXist.php');
             <td><a href="#" class="editTrinkenAb" data-pk="{$id}">{$ab}</a></td>
             <td><a href="#" class="editTrinkenBis" data-pk="{$id}">{$bis}</a></td>
         </tr>';
-        echo $_POST['test'];
+        echo $output;
 
 ?>
