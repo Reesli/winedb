@@ -1,28 +1,11 @@
 $(document).ready((function() {
 
-    var testTable = "<tr>"+
-                    "<td>{$id}</td>"+
-                    "<td><a href='#' class='editName' data-pk='{$id}'>{$name}</a></td>"+
-                    "<td><a href='#' class='editHerst' data-pk='{$id}'>{$herst}</a></td>"+
-                    "<td><a href='#' class='editLand' data-pk='{$id}'>{$land}</a></td>"+
-                    "<td><a href='#' class='editRegion' data-pk='{$id}'>{$region}</a></td>"+
-                    "<td><a href='#' class='editSelectColor' data-pk='{$id}'>{$weinfarbe}</a></td>"+
-                    "<td class='sorteTD'><a href='#' class='editSorte' data-pk='{$id}'>{$sorte}</a></td>"+
-                    "<td><a href='#' class='editJahr' data-pk='{$id}'>{$jahr}</a></td>"+
-                    "<td><a href='#' class='editAnzahl' data-pk='{$id}'>{$anzahl}</a></td>"+
-                    "<td><a href='#' class='editPunkte' data-pk='{$id}'>{$punkte}</a></td>"+
-                    "<td><a href='#' class='editTrinkenAb' data-pk='{$id}'>{$ab}</a></td>"+
-                    "<td><a href='#' class='editTrinkenBis' data-pk='{$id}'>{$bis}</a></td>"+
-                    "</tr>";
-
     printTableHeader();
-    printTableBody(getTableFromPHP());
-
-    var newRecords = {};
+    getTableFromPHP();
 
     //toggle `popup` / `inline` mode
     $.fn.editable.defaults.mode = 'popup';
-    $('#datatable tr > *:nth-child(1)').hide();
+//    $('#datatable tr > *:nth-child(1)').hide();
 
     // function button to editable mode
     // enable Edit and AddRow Button
@@ -63,20 +46,21 @@ $(document).ready((function() {
     function getTableFromPHP() {
       $.ajax({
           url: 'modules/loadData.php',
-          method: 'POST', // or GET
+          method: 'POST', // or GET,
+	  dataType: 'html',
           success: function(data) {
               console.log(data);
-              return data;
+              $('#createTableBody').html(data);
           }
       });
     }
 
     function printTableBody(body) {
-        $('#createTableBody').html(body)
+        $('#createTableBody').html(body);
     }
 
     function printTableHeader() {
-        var tableHeader = "<th style='display:none;'>ID</th>,"+
+        var tableHeader = "<th>ID</th>,"+
         "<th>Weinname</th>,"+
         "<th>Hersteller</th>,"+
         "<th>Herstellungsland</th>,"+
