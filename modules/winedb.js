@@ -33,21 +33,24 @@ $(document).ready((function() {
              "targets": [ 0 ],
              "visible": false,
              "searchable": false
-         },
-         {
-              "targets": [ 1 ],
-              "data": null,
-              "defaultContent": '<a href="#">'+data[1]+'</a>'
-          },
+         }
      ]
   });
+
+  $('#datatable tbody').on( 'click', 'tr', function () {
+       if ( $(this).hasClass('selected') ) {
+           $(this).removeClass('selected');
+       }
+       else {
+           table.$('tr.selected').removeClass('selected');
+           $(this).addClass('selected');
+       }
+   } );
+
     // function button to editable mode
     // enable Edit and AddRow Button
-    $('#enable').click(function() {
-        $('.editable').editable('toggleDisabled');
-        $('#addRow').toggle();
-        $('#datatable tr > *:nth-child(1)').toggle();
-        return false;
+    $('#edit').click(function() {
+        console.log(table.row('.selected').data())
     });
 
     $('#addWine').click(function() {
