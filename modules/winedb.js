@@ -3,7 +3,7 @@ $(document).ready((function() {
 
 
   // Sort and Filter
-  $('#datatable').DataTable({
+  var table = $('#datatable').DataTable({
     "processing": true,
        "serverSide": false,
        "ajax": {
