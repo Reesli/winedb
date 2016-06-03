@@ -24,11 +24,6 @@ $(document).ready((function() {
            { "data": "TrinkenAb" },
            { "data": "TrinkenBis" },
        ],
-       "columnDefs": [ {
-            "targets": -1,
-            "data": null,
-            "defaultContent": "<button class='editButton'>Click!</button>"
-        } ],
      "paging":   false,
      "ordering": true,
      "order": [[ 5, "asc" ]],
@@ -38,7 +33,12 @@ $(document).ready((function() {
              "targets": [ 0 ],
              "visible": false,
              "searchable": false
-         }
+         },
+         {
+              "targets": [ -1 ],
+              "data": null,
+              "defaultContent": "<button class='editButton'>Click!</button>"
+          },
      ]
   });
     // function button to editable mode
