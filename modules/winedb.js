@@ -1,8 +1,33 @@
 $(document).ready((function() {
 
-    printTableHeader();
-    printTableFromPHP();
 
+
+  // Sort and Filter
+  $('#datatable').DataTable({
+    "processing": true,
+       "serverSide": true,
+       "ajax": {
+           "url": "modules/loadData.php",
+           "type": "POST"
+       },
+       "columns": [
+           { "data": "ID" },
+           { "data": "Weinname" },
+           { "data": "Hersteller" },
+           { "data": "Herstellungsland" },
+           { "data": "Region" },
+           { "data": "Weinfarbe" },
+           { "data": "Jahrgang" },
+           { "data": "Anzahl" },
+           { "data": "Wertung" },
+           { "data": "Trinken ab" },
+           { "data": "Trinken bis" },
+       ], 
+     "paging":   false,
+     "ordering": true,
+     "order": [[ 5, "asc" ]],
+     "info":     false
+  });
     // function button to editable mode
     // enable Edit and AddRow Button
     $('#enable').click(function() {
@@ -211,13 +236,7 @@ $(document).ready((function() {
 
       $('.editable').editable('toggleDisabled');
   }
-    // Sort and Filter
-    $('#datatable').DataTable({
-       "paging":   false,
-       "ordering": true,
-       "order": [[ 5, "asc" ]],
-       "info":     false
-    });
+
 
     // Validator AddRow
     $("#wineform").bootstrapValidator({

@@ -18,21 +18,19 @@ include ('../resources/eXist.php');
         let $ab := $record/TrinkenAb/text()
         let $bis := $record/TrinkenBis/text()
         return
-        <tr>
-            <td>{$id}</td>
-            <td><a href="#" class="editName" data-pk="{$id}">{$name}</a></td>
-            <td><a href="#" class="editHerst" data-pk="{$id}">{$herst}</a></td>
-            <td><a href="#" class="editLand" data-pk="{$id}">{$land}</a></td>
-            <td><a href="#" class="editRegion" data-pk="{$id}">{$region}</a></td>
-            <td><a href="#" class="editSelectColor" data-pk="{$id}">{$weinfarbe}</a></td>
-            <td class="sorteTD"><a href="#" class="editSorte" data-pk="{$id}">{$sorte}</a></td>
-            <td><a href="#" class="editJahr" data-pk="{$id}">{$jahr}</a></td>
-            <td><a href="#" class="editAnzahl" data-pk="{$id}">{$anzahl}</a></td>
-            <td><a href="#" class="editPunkte" data-pk="{$id}">{$punkte}</a></td>
-            <td><a href="#" class="editTrinkenAb" data-pk="{$id}">{$ab}</a></td>
-            <td><a href="#" class="editTrinkenBis" data-pk="{$id}">{$bis}</a></td>
-        </tr>
-        ';
+          { "ID": "{$id}",
+            "Weinname": "$name",
+            "Hersteller": "{$herst}",
+            "Herstellungsland": "{$land}",
+            "Region": "{$region}",
+            "Weinfarbe": "{$weinfarbe}",
+            "Traubensorte": "{$sorte}",
+            "Jahrgang": "{$jahr}",
+            "Anzahl": "{$anzahl}",
+            "Wertung": "{$punkte}",
+            "TrinkenAb": "{$ab}",
+            "TrinkenBis": "{$bis}"
+          }';
         // Schreibt den Inhalt in die Datei zurück
         $output;
         function queryDB($query) {
@@ -51,12 +49,19 @@ include ('../resources/eXist.php');
             }
 
             # Get results
+            $records = '{
+              "data" : [ ';
             if ( !empty($answer["XML"]) ) {
                     foreach ( $answer["XML"] as $xml) {
-                            $records .= $xml;
+                      if ($xml === end($answer)){
+                        $records .= $xml
+                      }
+                        else {
+                            $records .= $xml . ",";
+                            }
                         }
                     }
-
+            $records .= ' ]}';
             if ($db->disconnect()) {
                 throw new Exception($db->getError());
             }
@@ -69,20 +74,5 @@ include ('../resources/eXist.php');
             echo "Error: " . $e->getMessage();
         }
 
-            $outputTest =   '<tr>
-            <td>{$id}</td>
-            <td><a href="#" class="editName" data-pk="{$id}">{$name}</a></td>
-            <td><a href="#" class="editHerst" data-pk="{$id}">{$herst}</a></td>
-            <td><a href="#" class="editLand" data-pk="{$id}">{$land}</a></td>
-            <td><a href="#" class="editRegion" data-pk="{$id}">{$region}</a></td>
-            <td><a href="#" class="editSelectColor" data-pk="{$id}">{$weinfarbe}</a></td>
-            <td class="sorteTD"><a href="#" class="editSorte" data-pk="{$id}">{$sorte}</a></td>
-            <td><a href="#" class="editJahr" data-pk="{$id}">{$jahr}</a></td>
-            <td><a href="#" class="editAnzahl" data-pk="{$id}">{$anzahl}</a></td>
-            <td><a href="#" class="editPunkte" data-pk="{$id}">{$punkte}</a></td>
-            <td><a href="#" class="editTrinkenAb" data-pk="{$id}">{$ab}</a></td>
-            <td><a href="#" class="editTrinkenBis" data-pk="{$id}">{$bis}</a></td>
-        </tr>';
         echo $output;
-
 ?>
