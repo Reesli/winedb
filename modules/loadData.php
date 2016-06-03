@@ -39,7 +39,7 @@ include ('../resources/eXist.php');
             $db = new eXist();
             if (!$db) {
                 throw new Exception($db->getError());
-            } 
+            }
             # Connect
             $db->connect();
             # XQuery execution
@@ -48,7 +48,7 @@ include ('../resources/eXist.php');
             $answer = $db->xquery($query);
             if (!$answer) {
                 throw new Exception($db->getError());
-            } 
+            }
 
             # Get results
             if ( !empty($answer["XML"]) ) {
@@ -61,7 +61,7 @@ include ('../resources/eXist.php');
                 throw new Exception($db->getError());
             }
             return $records;
-        } 
+        }
 
         try {
             $output = queryDB($query);
