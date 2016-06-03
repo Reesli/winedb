@@ -2,6 +2,7 @@ $(document).ready((function() {
 
     printTableHeader();
     getTableFromPHP();
+    makeEditable();
 
     //toggle `popup` / `inline` mode
     $.fn.editable.defaults.mode = 'popup';
@@ -49,7 +50,6 @@ $(document).ready((function() {
           method: 'POST', // or GET,
 	  dataType: 'html',
           success: function(data) {
-              console.log(data);
               $('#createTableBody').html(data);
           }
       });
@@ -143,73 +143,74 @@ $(document).ready((function() {
 
 
     // Single Cell Popup Editable
-    $('.editSelectColor').editable({
-        value: 0,
-        source: [
-              {value: 0, text: 'Rot'},
-              {value: 1, text: 'Weiss'},
-              {value: 2, text: 'Rosé'}
-           ],
-        type: 'select'
-    });
-    $('.editName').editable({
-            type: 'text',
-            url: '/post',
-            title: 'Weinname',
-            validate: function(value) {
-                if($.trim(value) === '') {
-                    return 'This field is required';
-                }
-            },
-            tpl: "<input style='width: 200px'>"});
-    $('.editHerst').editable({
-            type: 'text',
-            url: '/post',
-            title: 'Hersteller',
-            tpl: "<input style='width: 200px'>" });
-    $('.editLand').editable({
-            type: 'text',
-            url: '/post',
-            title: 'Herstellungsland',
-            tpl: "<input style='width: 200px'>" });
-    $('.editRegion').editable({
-            type: 'text',
-            url: '/post',
-            title: 'Region',
-            tpl: "<input style='width: 200px'>" });
-    $('.editSorte').editable({
-            type: 'text',
-            url: '/post',
-            title: 'Weinsorte',
-            tpl: "<input style='width: 200px'>" });
-    $('.editJahr').editable({
-            type: 'number',
-            url: '/post',
-            title: 'Herstellungsjahr',
-            tpl: "<input style='width: 100px'>" });
-    $('.editAnzahl').editable({
-            type: 'number',
-            url: '/post',
-            title: 'Anzahl Flaschen',
-            tpl: "<input style='width: 100px'>" });
-    $('.editPunkte').editable({
-            type: 'number',
-            url: '/post',
-            title: 'Wertungspunkte',
-            tpl: "<input style='width: 75px'>" });
-    $('.editTrinkenAb').editable({
-            type: 'number',
-            url: '/post',
-            title: 'Trinken ab',
-            tpl: "<input style='width: 100px'>" });
-    $('.editTrinkenBis').editable({
-            type: 'number',
-            url: '/post',
-            title: 'Trinken bis',
-            tpl: "<input style='width: 100px'>" });
+    function makeEditable() {
+      $('.editSelectColor').editable({
+          value: 0,
+          source: [
+                {value: 0, text: 'Rot'},
+                {value: 1, text: 'Weiss'},
+                {value: 2, text: 'Rosé'}
+             ],
+          type: 'select'
+      });
+      $('.editName').editable({
+              type: 'text',
+              url: '/post',
+              title: 'Weinname',
+              validate: function(value) {
+                  if($.trim(value) === '') {
+                      return 'This field is required';
+                  }
+              },
+              tpl: "<input style='width: 200px'>"});
+      $('.editHerst').editable({
+              type: 'text',
+              url: '/post',
+              title: 'Hersteller',
+              tpl: "<input style='width: 200px'>" });
+      $('.editLand').editable({
+              type: 'text',
+              url: '/post',
+              title: 'Herstellungsland',
+              tpl: "<input style='width: 200px'>" });
+      $('.editRegion').editable({
+              type: 'text',
+              url: '/post',
+              title: 'Region',
+              tpl: "<input style='width: 200px'>" });
+      $('.editSorte').editable({
+              type: 'text',
+              url: '/post',
+              title: 'Weinsorte',
+              tpl: "<input style='width: 200px'>" });
+      $('.editJahr').editable({
+              type: 'number',
+              url: '/post',
+              title: 'Herstellungsjahr',
+              tpl: "<input style='width: 100px'>" });
+      $('.editAnzahl').editable({
+              type: 'number',
+              url: '/post',
+              title: 'Anzahl Flaschen',
+              tpl: "<input style='width: 100px'>" });
+      $('.editPunkte').editable({
+              type: 'number',
+              url: '/post',
+              title: 'Wertungspunkte',
+              tpl: "<input style='width: 75px'>" });
+      $('.editTrinkenAb').editable({
+              type: 'number',
+              url: '/post',
+              title: 'Trinken ab',
+              tpl: "<input style='width: 100px'>" });
+      $('.editTrinkenBis').editable({
+              type: 'number',
+              url: '/post',
+              title: 'Trinken bis',
+              tpl: "<input style='width: 100px'>" });
 
-    $('.editable').editable('toggleDisabled');
-
+      $('.editable').editable('toggleDisabled');
+  }
     // Sort and Filter
    // $('#datatable').DataTable({
     //    "paging":   false,
