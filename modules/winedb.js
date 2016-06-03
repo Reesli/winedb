@@ -1,12 +1,7 @@
 $(document).ready((function() {
 
     printTableHeader();
-    getTableFromPHP();
-    makeEditable();
-
-    //toggle `popup` / `inline` mode
-    $.fn.editable.defaults.mode = 'popup';
-//    $('#datatable tr > *:nth-child(1)').hide();
+    printTableFromPHP();
 
     // function button to editable mode
     // enable Edit and AddRow Button
@@ -44,13 +39,18 @@ $(document).ready((function() {
 
 
     //functions
-    function getTableFromPHP() {
+    function printTableFromPHP() {
       $.ajax({
           url: 'modules/loadData.php',
-          method: 'POST', // or GET,
-	  dataType: 'html',
+          method: 'GET', // or GET,
           success: function(data) {
               $('#createTableBody').html(data);
+	      makeEditable();
+   	      //toggle `popup` / `inline` mode
+  	      $.fn.editable.defaults.mode = 'popup';
+	      $('#datatable tr > *:nth-child(1)').hide();
+	      $( "#datatable" ).DataTable();
+
           }
       });
     }
@@ -212,12 +212,12 @@ $(document).ready((function() {
       $('.editable').editable('toggleDisabled');
   }
     // Sort and Filter
-   // $('#datatable').DataTable({
-    //    "paging":   false,
-    //    "ordering": true,
-     //   "order": [[ 4, "asc" ]],
-    //    "info":     false
-    //});
+    $('#datatable').DataTable({
+       "paging":   false,
+       "ordering": true,
+       "order": [[ 5, "asc" ]],
+       "info":     false
+    });
 
     // Validator AddRow
     $("#wineform").bootstrapValidator({
