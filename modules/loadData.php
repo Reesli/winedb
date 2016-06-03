@@ -56,7 +56,7 @@ include ('../resources/eXist.php');
 
 
         $db->disconnect() or die ($db->getError());
-
-        return $output
+				$output = "Test"
+        echo json_encode($output);
 
 ?>
