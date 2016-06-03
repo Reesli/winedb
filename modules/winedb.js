@@ -16,7 +16,7 @@ $(document).ready((function() {
                     "</tr>";
 
     printTableHeader();
-    printTableBody(getTableFromPHP(testTable));
+    printTableBody(getTableFromPHP());
 
     var newRecords = {};
 
@@ -60,10 +60,9 @@ $(document).ready((function() {
 
 
     //functions
-    function getTableFromPHP(input) {
+    function getTableFromPHP() {
       var records;
       $.ajax({
-          data: 'test=' + input,
           url: 'modules/loadData.php',
           method: 'POST', // or GET
           success: function(data) {
@@ -74,8 +73,8 @@ $(document).ready((function() {
       return records;
     }
 
-    function printTableBody(records) {
-        $('#createTableBody').html(records)
+    function printTableBody(body) {
+        $('#createTableBody').html(body)
     }
 
     function printTableHeader() {
