@@ -35,9 +35,9 @@ $(document).ready((function() {
              "searchable": false
          },
          {
-              "targets": [ -1 ],
+              "targets": [ 1 ],
               "data": null,
-              "defaultContent": "<button class='editButton'>Click!</button>"
+              "defaultContent": '<a href="#">'+data[1]+'</a>'
           },
      ]
   });
