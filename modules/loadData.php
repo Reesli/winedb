@@ -3,7 +3,33 @@ include ('../resources/eXist.php');
 
         $query = '
         for $record in doc('."'".'/db/apps/WineDBxml/resources/WeinDB.xml'."'".')//WeinDB/Wein
-        return $record';
+        let $id := $record/@WeinID/string()
+        let $name := $record/Name
+        let $herst := $record/Hersteller
+        let $land := $record/Land
+        let $region := $record/Region
+        let $weinfarbe := $record/Weinfarbe
+        let $sorte := $record/Traubensorte
+        let $jahr := $record/Jahrgang
+        let $anzahl := $record/Anzahl
+        let $punkte := $record/Punkte
+        let $ab := $record/TrinkenAb
+        let $bis := $record/TrinkenBis
+        return 
+        <data>
+            <WeinID>{$id}</WeinID>
+            {$name}
+            {$herst}
+            {$land}
+            {$region}
+            {$weinfarbe}
+            {$sorte}
+            {$jahr}
+            {$anzahl}
+            {$punkte}
+            {$ab}
+            {$bis}
+        </data>';
 
         // Schreibt den Inhalt in die Datei zurück
         $output;
@@ -26,15 +52,13 @@ include ('../resources/eXist.php');
             $records = "<DB>".
                 "<draw>1</draw>".
                 "<recordsTotal>$hits</recordsTotal>".
-                "<recordsFiltered>$hits</recordsFiltered>".
-                "<data>";
+                "<recordsFiltered>$hits</recordsFiltered>";
             if ( !empty($answer["XML"]) ) {
                     foreach ( $answer["XML"] as $xml) {
                             $records .= $xml . "\n";
                         }
                     }
-            $records .= "</data>".
-            "</DB>";
+            $records .= "</DB>";
             if ($db->disconnect()) {
                 throw new Exception($db->getError());
             }
