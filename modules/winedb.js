@@ -5,7 +5,7 @@ $(document).ready((function() {
   // Sort and Filter
   $('#datatable').DataTable({
     "processing": true,
-       "serverSide": true,
+       "serverSide": false,
        "ajax": {
            "url": "modules/loadData.php",
            "type": "POST"
@@ -27,7 +27,14 @@ $(document).ready((function() {
      "paging":   false,
      "ordering": true,
      "order": [[ 5, "asc" ]],
-     "info":     false
+     "info":     false,
+     "columnDefs": [
+         {
+             "targets": [ 0 ],
+             "visible": false,
+             "searchable": false
+         }
+     ]
   });
     // function button to editable mode
     // enable Edit and AddRow Button
