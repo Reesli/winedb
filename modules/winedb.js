@@ -1,41 +1,105 @@
 $(document).ready((function() {
 
-    function getTableData() {
+    var testTable = "<tr>"+
+                    "<td>{$id}</td>"+
+                    "<td><a href='#' class='editName' data-pk='{$id}'>{$name}</a></td>"+
+                    "<td><a href='#' class='editHerst' data-pk='{$id}'>{$herst}</a></td>"+
+                    "<td><a href='#' class='editLand' data-pk='{$id}'>{$land}</a></td>"+
+                    "<td><a href='#' class='editRegion' data-pk='{$id}'>{$region}</a></td>"+
+                    "<td><a href='#' class='editSelectColor' data-pk='{$id}'>{$weinfarbe}</a></td>"+
+                    "<td class='sorteTD'><a href='#' class='editSorte' data-pk='{$id}'>{$sorte}</a></td>"+
+                    "<td><a href='#' class='editJahr' data-pk='{$id}'>{$jahr}</a></td>"+
+                    "<td><a href='#' class='editAnzahl' data-pk='{$id}'>{$anzahl}</a></td>"+
+                    "<td><a href='#' class='editPunkte' data-pk='{$id}'>{$punkte}</a></td>"+
+                    "<td><a href='#' class='editTrinkenAb' data-pk='{$id}'>{$ab}</a></td>"+
+                    "<td><a href='#' class='editTrinkenBis' data-pk='{$id}'>{$bis}</a></td>"+
+                    "</tr>";
 
-    }
-    
+    printTableHeader();
+    printTableBody(getTableFromPHP());
+
     var newRecords = {};
-    
+
     //toggle `popup` / `inline` mode
     $.fn.editable.defaults.mode = 'popup';
     $('#datatable tr > *:nth-child(1)').hide();
-    
+
     // function button to editable mode
     // enable Edit and AddRow Button
     $('#enable').click(function() {
         $('.editable').editable('toggleDisabled');
         $('#addRow').toggle();
         $('#datatable tr > *:nth-child(1)').toggle();
-        $('#test').attr("class", "app:saveTest");
         $.get("modules/loadData.php", function(data) {
         // use the result
-            printTable(data);
+
         });
         return false;
     });
 
-    function printTable(data) {
-        
+    $('#addWine').click(function() {
+        var newID = getCurrentRowCount();
+
+        // Add new temp row to table
+        var table = $('#datatable').DataTable();
+        var rowNode = table
+            .row.add( createTempRecordOnTable(newID) )
+            .draw()
+            .node();
+        $( rowNode )
+            .css( 'color', 'red' )
+            .animate( { color: 'black' } );
+
+        newRecords[newID] = getValuesFromForm();
+
+        console.log(newRecords);
+        $('.editable').editable();
+        $('#saveDB').toggle();
+    });
+
+
+    // hide Buttons button
+    $('#addRow').hide();
+    $('#saveDB').hide();
+
+
+    //functions
+    function getTableFromPHP() {
+      var records = $.get('modules/loadData.php', function(data) {
+        return data;
+      });
+      return records;
     }
-    
+
+    function printTableBody(records) {
+        $('#createTableBody').html(records)
+    }
+
+    function printTableHeader() {
+        var tableHeader = "<th style='display:none;'>ID</th>,"+
+        "<th>Weinname</th>,"+
+        "<th>Hersteller</th>,"+
+        "<th>Herstellungsland</th>,"+
+        "<th>Region</th>,"+
+        "<th>Weinfarbe</th>,"+
+        "<th>Weinsorte</th>,"+
+        "<th>Jahrgang</th>,"+
+        "<th>Anzahl</th>,"+
+        "<th>Wertung</th>,"+
+        "<th>Trinken ab</th>,"+
+        "<th>Trinken bis</th>";
+
+        $('#createTableHeader').html(tableHeader)
+    }
+
     function createCellValue(newValue, id, classValue) {
         return '<a href="#" class="'+classValue+' editable editable-click" data-pk="'+id+'">'+newValue+'</a>';
     }
-    
+
     function getCurrentRowCount() {
         return document.getElementById("datatable").rows.length;
     }
-    
+
     function createTempRecordOnTable(newID) {
         var tableRecord = [newID];
         tableRecord.push(createCellValue(document.getElementById('ipName').value,newID,"editName"));
@@ -49,10 +113,10 @@ $(document).ready((function() {
         tableRecord.push(createCellValue(document.getElementById('ipPun').value,newID,"editPunkte"));
         tableRecord.push(createCellValue(document.getElementById('ipTAb').value,newID,"editTrinkenAb"));
         tableRecord.push(createCellValue(document.getElementById('ipTBis').value,newID,"editTrinkenBis"));
-        
+
         return tableRecord;
     }
-    
+
     function getValuesFromForm() {
         var newRecord = { "weinname":document.getElementById('ipName').value,
                         "hersteller":document.getElementById('ipHerst').value,
@@ -66,34 +130,13 @@ $(document).ready((function() {
                         "trinkab":document.getElementById('ipTAb').value,
                         "trinkbis":document.getElementById('ipTBis').value
         };
-        
+
         return newRecord;
     }
-    
-    $('#addWine').click(function() {
-        var newID = getCurrentRowCount();
-        
-        // Add new temp row to table
-        var table = $('#datatable').DataTable();
-        var rowNode = table
-            .row.add( createTempRecordOnTable(newID) )
-            .draw()
-            .node();
-        $( rowNode )
-            .css( 'color', 'red' )
-            .animate( { color: 'black' } );
-        
-        newRecords[newID] = getValuesFromForm();
-        
-        console.log(newRecords);
-        $('.editable').editable();
-        $('#saveDB').toggle();
-    });
-    
+
+
+
     function saveJSON() {
-        
-        
-        
         var data = JSON.stringify({"surname":"rees",
                 "name":"tobi"
         });
@@ -112,11 +155,9 @@ $(document).ready((function() {
         });
     }
 
-    
-    // hide Buttons button
-    $('#addRow').hide();
-    $('#saveDB').hide();
-    
+
+
+
     // Single Cell Popup Editable
     $('.editSelectColor').editable({
         value: 0,
@@ -182,9 +223,9 @@ $(document).ready((function() {
             url: '/post',
             title: 'Trinken bis',
             tpl: "<input style='width: 100px'>" });
-            
+
     $('.editable').editable('toggleDisabled');
-    
+
     // Sort and Filter
    // $('#datatable').DataTable({
     //    "paging":   false,
@@ -192,7 +233,7 @@ $(document).ready((function() {
      //   "order": [[ 4, "asc" ]],
     //    "info":     false
     //});
-    
+
     // Validator AddRow
     $("#wineform").bootstrapValidator({
         framework: 'bootstrap',
