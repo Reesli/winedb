@@ -11,18 +11,17 @@ $(document).ready((function() {
            "type": "POST"
        },
        "columns": [
-           { "data": "ID" },
-           { "data": "Weinname" },
-           { "data": "Hersteller" },
-           { "data": "Herstellungsland" },
-           { "data": "Region" },
-           { "data": "Weinfarbe" },
-           { "data": "Jahrgang" },
-           { "data": "Anzahl" },
-           { "data": "Wertung" },
-           { "data": "Trinken ab" },
-           { "data": "Trinken bis" },
-       ], 
+           { "Wein": "Weinname" },
+           { "Wein": "Hersteller" },
+           { "Wein": "Herstellungsland" },
+           { "Wein": "Region" },
+           { "Wein": "Weinfarbe" },
+           { "Wein": "Jahrgang" },
+           { "Wein": "Anzahl" },
+           { "Wein": "Wertung" },
+           { "Wein": "Trinken ab" },
+           { "Wein": "Trinken bis" },
+       ],
      "paging":   false,
      "ordering": true,
      "order": [[ 5, "asc" ]],
@@ -78,27 +77,6 @@ $(document).ready((function() {
 
           }
       });
-    }
-
-    function printTableBody(body) {
-        $('#createTableBody').html(body);
-    }
-
-    function printTableHeader() {
-        var tableHeader = "<th>ID</th>,"+
-        "<th>Weinname</th>,"+
-        "<th>Hersteller</th>,"+
-        "<th>Herstellungsland</th>,"+
-        "<th>Region</th>,"+
-        "<th>Weinfarbe</th>,"+
-        "<th>Weinsorte</th>,"+
-        "<th>Jahrgang</th>,"+
-        "<th>Anzahl</th>,"+
-        "<th>Wertung</th>,"+
-        "<th>Trinken ab</th>,"+
-        "<th>Trinken bis</th>";
-
-        $('#createTableHeader').html(tableHeader)
     }
 
     function createCellValue(newValue, id, classValue) {
