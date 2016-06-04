@@ -55,7 +55,7 @@ $(document).ready((function() {
         if(rowData == null){
 	alert("Select a row to edit!")
         } else {
-          editRow(rowData)
+          editRow(rowData);
         }
 
     });
@@ -73,8 +73,8 @@ $(document).ready((function() {
         //    .css( 'color', 'red' )
         //    .animate( { color: 'black' } );
 
-        var testID = '1'
-        var newID = 1
+        var testID = '1';
+        var newID = 1;
         storeTemp.edit[testID]= { "Name" : "Testwein",
                                   "Jahrgang" : 2005
                                 }
@@ -84,9 +84,9 @@ $(document).ready((function() {
 
         $('#saveDB').toggle();
     });
-      $('#saveDB').click() {
-        saveJSON()
-      }
+      $('#saveDB').click(function() {
+        saveJSON();
+      });
 
     // hide Buttons button
     $('#addRow').hide();
