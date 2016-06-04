@@ -50,9 +50,9 @@ $(document).ready((function() {
     // function button to editable mode
     // enable Edit and AddRow Button
     $('#edit').click(function() {
-        var rowData = table.row('.selected').data())
+        var rowData = table.row('.selected').data()
         if(rowData == null){
-            alert("Select a row to edit!")
+	alert("Select a row to edit!")
         } else {
           editRow(rowData)
         }
