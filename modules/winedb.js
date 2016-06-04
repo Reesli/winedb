@@ -57,7 +57,7 @@ $(document).ready((function() {
     });
 
     $('#edWine').click(function() {
-      if(count(getEditValues()) > 0) {
+      if(getEditValues().length > 0) {
         console.log(getEditValues())
       } else {
         console.log("nix geladen");
@@ -395,14 +395,10 @@ $(document).ready((function() {
             }
         }
     })
-    .on('err.field.bv', function(e, data) {
-        if (data.fv.getSubmitButton()) {
-            data.fv.disableSubmitButtons(false);
-        }
-    })
-    .on('success.field.bv', function(e, data) {
-        if (data.fv.getSubmitButton()) {
-            data.fv.disableSubmitButtons(false);
-        }
+    .on('error.field.bv', function(e, data) {
+            data.bv.disableSubmitButtons(true); // disable submit buttons on errors
+        })
+    .on('status.field.bv', function(e, data) {
+            data.bv.disableSubmitButtons(false); // enable submit buttons on valid
     });
 }));
