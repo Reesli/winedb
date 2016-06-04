@@ -74,7 +74,7 @@ $(document).ready((function() {
       $('#edWine').click(function() {
         var weinid = 1;
         var storeTemp = {"edit": []};
-        var storeTemp.edit[weinid] = { "Name" : "AlterTestwein",
+        storeTemp.edit[weinid] = { "Name" : "AlterTestwein",
                                         "Jahrgang" : 2000};
         saveJSON(storeTemp);
       });
