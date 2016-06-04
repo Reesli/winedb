@@ -60,6 +60,8 @@ $(document).ready((function() {
 
     });
 
+
+
     $('#addWine').click(function() {
         var newID = getCurrentRowCount();
 
@@ -73,23 +75,43 @@ $(document).ready((function() {
         //    .css( 'color', 'red' )
         //    .animate( { color: 'black' } );
 
-        var testID = '1';
-        var newID = 1;
-        storeTemp.edit[testID]= { "Name" : "Testwein",
-                                  "Jahrgang" : 2005
-                                }
-        storeTemp.add[newID]= { "Name" : "Neuerwein",
-                                  "Jahrgang" : 2323
+        var testID = 1;
+
+        storeTemp.edit[testID]= { "Name" : "AlterTestwein",
+                                  "Jahrgang" : 2000
                                 }
 
         $('#saveDB').toggle();
-    });
-      $('#saveDB').click(function() {
-        saveJSON();
       });
 
+      $('#edWine').click(function() {
+        //  var newID = getCurrentRowCount();
+
+          // Add new temp row to table
+        //  var table = $('#datatable').DataTable();
+      //    var rowNode = table
+        //      .row.add( createTempRecordOnTable(newID) )
+        //      .draw()
+          //    .node();
+        //  $( rowNode )
+          //    .css( 'color', 'red' )
+          //    .animate( { color: 'black' } );
+
+          var newID = 2;
+
+          storeTemp.add[newID]= { "Name" : "Neuerwein",
+                                    "Jahrgang" : 2323
+                                  }
+
+          $('#saveDB').toggle();
+        });
+
+
+    $('#saveDB').click(function() {
+      saveJSON();
+    });
+
     // hide Buttons button
-    $('#addRow').hide();
     $('#saveDB').hide();
 
 
