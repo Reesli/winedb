@@ -143,7 +143,7 @@ $(document).ready((function() {
         $.ajax({
             url: "modules/storeData.php",
             type: "POST",
-            data: {"edit":"test"},
+            data: storeData,
             success: function(res) {
                     console.log(res);
                     },
