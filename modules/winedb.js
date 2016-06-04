@@ -56,7 +56,7 @@ $(document).ready((function() {
 
     });
 
-    $('#edit').click(function() {
+    $('#addRow').click(function() {
       $("#addModalForm").modal();
     });
 
@@ -142,9 +142,8 @@ $(document).ready((function() {
     function saveJSON(storeData) {
         $.ajax({
             url: "modules/storeData.php",
-            type: "post",
-            data: storeData,
-            cache: false,
+            type: "POST",
+            data: {"edit":"test"},
             success: function(res) {
                     console.log(res);
                     },
