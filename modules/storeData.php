@@ -32,13 +32,13 @@ include ('../resources/eXist.php');
 function updateDB($XQueryUpdate,$XQueryCheckUpdate){
   $checkOK = true;
   foreach($XQueryUpdate as $xQuery ){
-    try{ 
+    try{
       updateValue($xQuery);
     } catch (Exception $e){
       echo "Error update: " . $e->getMessage();
     }
   }
-  foreach($XQueryCheckUpdate as $xQuery=>$value ){ 
+  foreach($XQueryCheckUpdate as $xQuery=>$value ){
     try {
      $checkOK = checkUpdatedValue($xQuery,$value);
     } catch (Exception $e){
@@ -47,7 +47,7 @@ function updateDB($XQueryUpdate,$XQueryCheckUpdate){
 
 
     }
-  
+
   return $checkOK;
 }
 
@@ -77,7 +77,7 @@ function createXQueryCheck($updateArray) {
 }
 
   function updateValue($xQuery) {
-      $db = new eXist('admin', '32pommes', 'http://localhost:8080/exist/services/Query?wsdl');
+      $db = new eXist('webmoder', 'Test2016', 'http://localhost:8080/exist/services/Query?wsdl');
       # Connect
       if (!$db->connect()) {
         throw new Exception($db->getError());
@@ -87,13 +87,13 @@ function createXQueryCheck($updateArray) {
       $db->setDebug(FALSE);
       $db->setHighlight(FALSE);
       # XQuery execution
-      $answer = $db->xquery($xQuery); 
+      $answer = $db->xquery($xQuery);
       if (!$answer){
         if(!$db->getError() == "ERROR: No data found!"){
-          throw new Exception($db->getError()); 
+          throw new Exception($db->getError());
         }
       }
-	
+
        if ($db->disconnect()) {
           throw new Exception($db->getError());
       }
@@ -102,7 +102,7 @@ function createXQueryCheck($updateArray) {
 
   function checkUpdatedValue($xQuery, $value) {
 
-      $db = new eXist('admin', '32pommes', 'http://localhost:8080/exist/services/Query?wsdl');
+      $db = new eXist('webmoder', 'Test2016', 'http://localhost:8080/exist/services/Query?wsdl');
 
       if (!$db->connect()) {
           throw new Exception($db->getError());
@@ -115,7 +115,7 @@ function createXQueryCheck($updateArray) {
       if (!$answer) {
           throw new Exception($db->getError());
       }
-      
+
 
       if ($db->disconnect()) {
           throw new Exception($db->getError());
