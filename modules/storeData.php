@@ -1,8 +1,10 @@
 <?php
 include ('../resources/eXist.php');
 
+    $storeTemp.['edit']['1'] = { "Name" : "AlterTestwein",
+                                "Jahrgang" : 2000}
     # Update a record/row in XML Wine DB
-    if (!empty($_POST['edit'])) {
+    if (!empty($storeTemp['edit'])) {
       # Create XQuery Scripts from POST data with title edit
       $XQueryUpdate = createXQueryUpdate($_POST['edit']);
       $XQueryCheckUpdate = createXQueryCheck($_POST['edit']);
