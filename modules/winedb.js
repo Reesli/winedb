@@ -57,7 +57,7 @@ $(document).ready((function() {
     });
 
     $('#addRow').click(function() {
-      $("#addModalForm").modal();
+      $("#addModalRow").modal();
     });
 
 

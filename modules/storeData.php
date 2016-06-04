@@ -3,7 +3,7 @@ include ('../resources/eXist.php');
     $xqueryEdit = [];
     $xqueryAdd = [];
     if (!empty($_POST['edit'])) {
-      var $editArray = json_decode()$_POST['edit']);
+      $editArray = json_decode()$_POST['edit']);
       foreach ($editArray as $weinEdit=>$id) {
         foreach($weinEdit as $key=>$value) {
           array_push($xqueryEdit, 'for $record in doc('."'".'/db/apps/WineDBxml/resources/WeinDB.xml'."'".')//WeinDB/Wein'.
@@ -16,7 +16,7 @@ include ('../resources/eXist.php');
       echo "nothing edit post"
     }
     if (!empty($_POST['add'])) {
-      var $addArray = json_decode()$_POST['add']);
+      $addArray = json_decode()$_POST['add']);
       foreach ($addArray as $weinAdd=>$id) {
         foreach($weinAdd as $key=>$value) {
           array_push($xqueryAdd, 'for $record in doc('."'".'/db/apps/WineDBxml/resources/WeinDB.xml'."'".')//WeinDB/Wein'.
