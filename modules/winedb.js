@@ -1,8 +1,5 @@
 $(document).ready((function() {
 
-
-  var storeTemp = {"add": [],
-                    "edit":[]};
   // Sort and Filter
   var table = $('#datatable').DataTable({
     "processing": true,
