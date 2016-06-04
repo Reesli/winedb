@@ -60,11 +60,12 @@ function createXQueryCheck($updateArray) {
   $XQueryStringArray = [];
   foreach ($updateArray as $id=>$weinEdit) {
     foreach($weinEdit as $key=>$value) {
-      array_push($XQueryStringArray, 'for $record in doc('."'".'/db/apps/WineDBxml/resources/WeinDB.xml'."'".')//WeinDB/Wein'.
+      $XQueryStringArray['for $record in doc('."'".'/db/apps/WineDBxml/resources/WeinDB.xml'."'".')//WeinDB/Wein'.
       'where some $id in $record/@WeinID staisfies $id = "'. $id .'"'.
-      'return $record/'.$key.'/text()' => $value);
+      'return $record/'.$key.'/text()'] = $value;
     }
     return $XQueryStringArray;
+}
 }
 
   function updateValue($xQuery) {
