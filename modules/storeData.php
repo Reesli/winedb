@@ -1,16 +1,15 @@
 <?php
 include ('../resources/eXist.php');
 
-    $storeTemp.['edit']['1'] = { "Name" : "AlterTestwein",
-                                "Jahrgang" : 2000}
     # Update a record/row in XML Wine DB
-    if (!empty($storeTemp['edit'])) {
+    if (!empty($_POST['edit'])) {
       # Create XQuery Scripts from POST data with title edit
       $XQueryUpdate = createXQueryUpdate($_POST['edit']);
       $XQueryCheckUpdate = createXQueryCheck($_POST['edit']);
       if(!updateDB($XQueryUpdate,$XQueryCheckUpdate)){
           echo "Some Error while updating";
       }
+      echo "success";
     } else {
       echo "No edit post recieved";
     }
@@ -22,7 +21,7 @@ include ('../resources/eXist.php');
     foreach ($addArray as $id=>$weinAdd) {
       foreach($weinAdd as $key=>$value) {
         array_push($xqueryAdd, 'for $record in doc('."'".'/db/apps/WineDBxml/resources/WeinDB.xml'."'".')//WeinDB/Wein'.
-        'where some $id in $record/@WeinID staisfies $id = "'. $id .'"'.
+        'where some $id in  $record/@WeinID satisfies $id = "'. $id .'"'.
         'return update value $record/'.$key.' with "'.$value.'""');
       }
     }
@@ -33,13 +32,22 @@ include ('../resources/eXist.php');
 function updateDB($XQueryUpdate,$XQueryCheckUpdate){
   $checkOK = true;
   foreach($XQueryUpdate as $xQuery ){
-    updateValue($xQuery);
-  }
-  foreach($XQueryCheckUpdate as $xQuery=>$value ){
-    if(!checkUpdatedValue($xQuery,$value)){
-      $checkOK = false;
+    try{ 
+      updateValue($xQuery);
+    } catch (Exception $e){
+      echo "Error update: " . $e->getMessage();
     }
   }
+  foreach($XQueryCheckUpdate as $xQuery=>$value ){ 
+    try {
+     $checkOK = checkUpdatedValue($xQuery,$value);
+    } catch (Exception $e){
+      echo "Error check: " . $e->getMessage();
+    }
+
+
+    }
+  
   return $checkOK;
 }
 
@@ -47,8 +55,8 @@ function createXQueryUpdate($updateArray) {
   $XQueryStringArray = [];
   foreach ($updateArray as $id=>$weinEdit) {
     foreach($weinEdit as $key=>$value) {
-      array_push($XQueryStringArray, 'for $record in doc('."'".'/db/apps/WineDBxml/resources/WeinDB.xml'."'".')//WeinDB/Wein'.
-      'where some $id in $record/@WeinID staisfies $id = "'. $id .'"'.
+      array_push($XQueryStringArray,'for $record in doc('."'".'/db/apps/WineDBxml/resources/WeinDB.xml'."'".')//WeinDB/Wein '.
+      'where some $id in  $record/@WeinID satisfies $id  = "'. $id .'" '.
       'return update value $record/'.$key.' with "'.$value.'"');
     }
   }
@@ -57,18 +65,19 @@ function createXQueryUpdate($updateArray) {
 
 function createXQueryCheck($updateArray) {
   $XQueryStringArray = [];
-  foreach ($updateArray as $id=>$weinEdit) {
+  foreach($updateArray as $id=>$weinEdit) {
     foreach($weinEdit as $key=>$value) {
-      $XQueryStringArray['for $record in doc('."'".'/db/apps/WineDBxml/resources/WeinDB.xml'."'".')//WeinDB/Wein'.
-      'where some $id in $record/@WeinID staisfies $id = "'. $id .'"'.
-      'return $record/'.$key.'/text()'] = $value;
+      $string = 'for $record in doc('."'".'/db/apps/WineDBxml/resources/WeinDB.xml'."'".')//WeinDB/Wein '.
+      'where some $id in  $record/@WeinID satisfies $id = "'. $id .'" '.
+      'return $record/'.$key.'/text()';
+      $XQueryStringArray[$string] = $value;
     }
   }
   return $XQueryStringArray;
 }
 
   function updateValue($xQuery) {
-      $db = new eXistAdmin('admin', '32pommes', 'http://127.0.0.1:8080/exist/services/Admin?wsdl');
+      $db = new eXist('admin', '32pommes', 'http://localhost:8080/exist/services/Query?wsdl');
       # Connect
       if (!$db->connect()) {
         throw new Exception($db->getError());
@@ -78,14 +87,22 @@ function createXQueryCheck($updateArray) {
       $db->setDebug(FALSE);
       $db->setHighlight(FALSE);
       # XQuery execution
-      if (!$db->xquery($xQuery)){
-        throw new Exception($db->getError());
+      $answer = $db->xquery($xQuery); 
+      if (!$answer){
+        if(!$db->getError() == "ERROR: No data found!"){
+          throw new Exception($db->getError()); 
+        }
       }
+	
+       if ($db->disconnect()) {
+          throw new Exception($db->getError());
+      }
+
   }
 
   function checkUpdatedValue($xQuery, $value) {
 
-      $db = new eXistAdmin('admin', '32pommes', 'http://127.0.0.1:8080/exist/services/Admin?wsdl');
+      $db = new eXist('admin', '32pommes', 'http://localhost:8080/exist/services/Query?wsdl');
 
       if (!$db->connect()) {
           throw new Exception($db->getError());
@@ -98,11 +115,12 @@ function createXQueryCheck($updateArray) {
       if (!$answer) {
           throw new Exception($db->getError());
       }
+      
 
       if ($db->disconnect()) {
           throw new Exception($db->getError());
       }
-        return $value == $answer;
+        return $value == $answer["XML"];
   }
 
 ?>
