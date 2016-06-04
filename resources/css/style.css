@@ -41,3 +41,9 @@ td {
         width: 1470px;
     }
 }
+
+@media (min-width: 2000px) {
+    .container {
+        width: 1970px;
+    }
+}
