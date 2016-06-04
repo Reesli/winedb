@@ -46,36 +46,33 @@ $(document).ready((function() {
    } );
 
     // function button to edit row
-    $('#edit').click(function() {
+    $('#editRow').click(function() {
         var rowData = table.row('.selected').data()
         if(rowData == null){
 	         alert("Select a row to edit!")
         } else {
-          editRow(rowData);
+          fillModalWithRowData(rowData);
         }
 
     });
 
-    $('#addRow').click(function() {
-      $("#addModalRow").modal();
+    $('#edWine').click(function() {
+      if(count(getEditValues()) > 0) {
+        console.log(getEditValues())
+      } else {
+        console.log("nix geladen");
+      }
+
+      //saveJSON(getEditValues());
     });
 
-
-
+    $('#addRow').click(function() {
+      $("#addModalRow").modal();
+      $('#addForm').bootstrapValidator('validate');
+    });
 
     $('#addWine').click(function() {
         var newID = getCurrentRowCount();
-
-        storeTemp.add[newID]= { "Name" : "NeuerWein",
-                                  "Jahrgang" : 3213};
-        saveJSON(storeTemp);
-      });
-
-      $('#edWine').click(function() {
-        var weinid = 1;
-        var storeTemp = {"edit": []};
-        storeTemp.edit[weinid] = { "Name" : "SuperAlterWein",
-                                        "Jahrgang" : 2000};
         saveJSON(storeTemp);
       });
 
@@ -84,7 +81,7 @@ $(document).ready((function() {
 
 
     //functions
-    function editRow(rowData) {
+    function fillModalWithRowData(rowData) {
       $("#edName").val(rowData['Name'])
       $("#edHerst").val(rowData['Hersteller'])
       $("#edLand").val(rowData['Land'])
@@ -120,21 +117,37 @@ $(document).ready((function() {
         return tableRecord;
     }
 
-    function getValuesFromForm() {
-        var newRecord = { "weinname":document.getElementById('ipName').value,
-                        "hersteller":document.getElementById('ipHerst').value,
-                        "land":document.getElementById('ipLand').value,
-                        "region":document.getElementById('ipReg').value,
-                        "farbe":document.getElementById('ipFarb').value,
-                        "sorte":document.getElementById('ipSort').value,
-                        "jahr":document.getElementById('ipJahr').value,
-                        "anzahl":document.getElementById('ipAnz').value,
-                        "punkte":document.getElementById('ipPun').value,
-                        "trinkab":document.getElementById('ipTAb').value,
-                        "trinkbis":document.getElementById('ipTBis').value
+    function getAddValues() {
+        var newRecord = { "Name":document.getElementById('ipName').value,
+                        "Hersteller":document.getElementById('ipHerst').value,
+                        "Land":document.getElementById('ipLand').value,
+                        "Region":document.getElementById('ipReg').value,
+                        "Weinfarbe":document.getElementById('ipFarb').value,
+                        "Traubensorte":document.getElementById('ipSort').value,
+                        "Jahrgang":document.getElementById('ipJahr').value,
+                        "Anzahl":document.getElementById('ipAnz').value,
+                        "Punkte":document.getElementById('ipPun').value,
+                        "TrinkenAb":document.getElementById('ipTAb').value,
+                        "TrinkenBis":document.getElementById('ipTBis').value
         };
 
         return newRecord;
+    }
+    function getEditValues() {
+      var rowData = table.row('.selected').data()
+      var editRecord = {"edit": []}
+      if($("#edName").val() != rowData['Name']){ editRecord['edit'] = {'Name':$("#edName").val()}};
+      if($("#edHerst").val() != rowData['Hersteller']){ editRecord['edit'] = {'Hersteller':$("#edHerst").val()}};
+      if($("#edLand").val() != rowData['Land']){ editRecord['edit'] = {'Land':$("#edLand").val()}};
+      if($("#edReg").val() != rowData['Region']){ editRecord['edit'] = {'Region':$("#edReg").val()}};
+      if($("#edFarb").val() != rowData['Weinfarbe']){ editRecord['edit'] = {'Weinfarbe':$("#edFarb").val()}};
+      if($("#edSort").val() != rowData['Traubensorte']){ editRecord['edit'] = {'Traubensorte':$("#edSort").val()}};
+      if($("#edJahr").val() != rowData['Jahrgang']){ editRecord['edit'] = {'Jahrgang':$("#edJahr").val()}};
+      if($("#edAnz").val() != rowData['Anzahl']){ editRecord['edit'] = {'Anzahl':$("#edAnz").val()}};
+      if($("#edPun").val() != rowData['Punkte']){ editRecord['edit'] = {'Punkte':$("#edPun").val()}};
+      if($("#edTAb").val() != rowData['TrinkenAb']){ editRecord['edit'] = {'TrinkenAb':$("#edTAb").val()}};
+      if($("#edTBis").val() != rowData['TrinkenBis']){ editRecord['edit'] = {'TrinkenBis':$("#edTBis").val()}};
+      return editRecord['edit'];
     }
 
 
@@ -155,9 +168,8 @@ $(document).ready((function() {
     }
 
     // Validator AddRow
-    $("#wineform").bootstrapValidator({
+    $("#addForm").bootstrapValidator({
         framework: 'bootstrap',
-        excluded: ':disabled',
         icon: {
             valid: 'glyphicon glyphicon-ok',
             invalid: 'glyphicon glyphicon-remove',
@@ -189,13 +201,6 @@ $(document).ready((function() {
                 validators: {
                     notEmpty: {
                         message: 'Die Region fehlt.'
-                    }
-                }
-            },
-            farbe: {
-                validators: {
-                    notEmpty: {
-                        message: 'Die Weinfarbe fehlt.'
                     }
                 }
             },
@@ -237,6 +242,167 @@ $(document).ready((function() {
                     }
                 }
             }
+        }
+    })
+    .on('error.field.bv', function(e, data) {
+            data.bv.disableSubmitButtons(true); // disable submit buttons on errors
+        })
+    .on('status.field.bv', function(e, data) {
+            data.bv.disableSubmitButtons(false); // enable submit buttons on valid
+    });
+
+    // Validator EditRow
+    $("#editForm").bootstrapValidator({
+        framework: 'bootstrap',
+        excluded: ':disabled',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            weinname: {
+                validators: {
+                    notEmpty: {
+                        message: 'Der Weinname fehlt.'
+                    },
+                    different: {
+                        field: 'weinname',
+                        message: 'Keine Änderung.'
+                    }
+                }
+            },
+            hersteller: {
+                validators: {
+                    notEmpty: {
+                        message: 'Der Hersteller fehlt.'
+                    },
+                    different: {
+                        field: 'hersteller',
+                        message: 'Keine Änderung.'
+                    }
+                }
+            },
+            land: {
+                validators: {
+                    notEmpty: {
+                        message: 'Das Herstellungsland fehlt.'
+                    },
+                    different: {
+                        field: 'land',
+                        message: 'Keine Änderung.'
+                    }
+                }
+            },
+            region: {
+                validators: {
+                    notEmpty: {
+                        message: 'Die Region fehlt.'
+                    },
+                    different: {
+                        field: 'region',
+                        message: 'Keine Änderung.'
+                    }
+                }
+            },
+            farbe: {
+                validators: {
+                    different: {
+                        field: 'farbe',
+                        message: 'Keine Änderung.'
+                    }
+                }
+            },
+            sorte: {
+                validators: {
+                    notEmpty: {
+                        message: 'Die Weinsorte(n) fehlen.'
+                    },
+                    different: {
+                        field: 'sorte',
+                        message: 'Keine Änderung.'
+                    }
+                }
+            },
+            jahr: {
+                validators: {
+                    notEmpty: {
+                        message: 'Der Jahrgang fehlt.'
+                    },
+                    greaterThan: {
+                        value: 0,
+                        message: 'Der Jahrgang muss grösser als 0 sein.'
+                    },
+                    different: {
+                        field: 'jahr',
+                        message: 'Keine Änderung.'
+                    }
+                }
+            },
+            anzahl: {
+                validators: {
+                    notEmpty: {
+                        message: 'Anzahl Flaschen fehlt'
+                    },
+                    greaterThan: {
+                        value: -1,
+                        message: 'Anzahl Flaschen muss 0 oder grösser sein.'
+                    },
+                    different: {
+                        field: 'anzahl',
+                        message: 'Keine Änderung.'
+                    }
+                }
+            },
+            punkte: {
+                validators: {
+                    between: {
+                        min: 1,
+                        max: 10,
+                        message: 'Die Punktewertung muss von 1 bis 10 sein.'
+                    },
+                    different: {
+                        field: 'punkte',
+                        message: 'Keine Änderung.'
+                    }
+                }
+            },
+            trinkenab: {
+                validators: {
+                    between: {
+                        min: 1,
+                        max: 10,
+                        message: 'Die Punktewertung muss von 1 bis 10 sein.'
+                    },
+                    different: {
+                        field: 'trinkenab',
+                        message: 'Keine Änderung.'
+                    }
+                }
+            },
+            trinkenbis: {
+                validators: {
+                    between: {
+                        min: 1,
+                        max: 10,
+                        message: 'Die Punktewertung muss von 1 bis 10 sein.'
+                    },
+                    different: {
+                        field: 'trinkenbis',
+                        message: 'Keine Änderung.'
+                    }
+                }
+            }
+        }
+    })
+    .on('err.field.bv', function(e, data) {
+        if (data.fv.getSubmitButton()) {
+            data.fv.disableSubmitButtons(false);
+        }
+    })
+    .on('success.field.bv', function(e, data) {
+        if (data.fv.getSubmitButton()) {
+            data.fv.disableSubmitButtons(false);
         }
     });
 }));
