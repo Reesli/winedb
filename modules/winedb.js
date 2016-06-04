@@ -1,7 +1,8 @@
 $(document).ready((function() {
 
 
-
+  var storeTemp = {"add": [],
+                    "edit":[]};
   // Sort and Filter
   var table = $('#datatable').DataTable({
     "processing": true,
@@ -63,22 +64,29 @@ $(document).ready((function() {
         var newID = getCurrentRowCount();
 
         // Add new temp row to table
-        var table = $('#datatable').DataTable();
-        var rowNode = table
-            .row.add( createTempRecordOnTable(newID) )
-            .draw()
-            .node();
-        $( rowNode )
-            .css( 'color', 'red' )
-            .animate( { color: 'black' } );
+      //  var table = $('#datatable').DataTable();
+    //    var rowNode = table
+      //      .row.add( createTempRecordOnTable(newID) )
+      //      .draw()
+        //    .node();
+      //  $( rowNode )
+        //    .css( 'color', 'red' )
+        //    .animate( { color: 'black' } );
 
-        newRecords[newID] = getValuesFromForm();
+        var testID = '1'
+        var newID = 1
+        storeTemp.edit[testID]= { "Name" : "Testwein",
+                                  "Jahrgang" : 2005
+                                }
+        storeTemp.add[newID]= { "Name" : "Neuerwein",
+                                  "Jahrgang" : 2323
+                                }
 
-        console.log(newRecords);
-        $('.editable').editable();
         $('#saveDB').toggle();
     });
-
+      $('#saveDB').click() {
+        saveJSON()
+      }
 
     // hide Buttons button
     $('#addRow').hide();
@@ -142,20 +150,16 @@ $(document).ready((function() {
 
 
     function saveJSON() {
-        var data = JSON.stringify({"surname":"rees",
-                "name":"tobi"
-        });
         $.ajax({
-            url: "modules/backend.php",
+            url: "modules/storeData.php",
             type: "post",
-            data: data,
+            data: storeTemp,
             cache: false,
-            success: function(jsonStr) {
-                $("#result").text(JSON.stringify(jsonStr));
-            },
-            error: function(xhr, status, error) {
-              var err = eval("(" + xhr.responseText + ")");
-              alert(err.Message);
+            success: function(res) {
+                    console.log(res)
+                    },
+            error: function () {
+                $('#status').html('Failed').slideDown();
             }
         });
     }
