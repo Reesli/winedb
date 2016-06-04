@@ -48,71 +48,42 @@ $(document).ready((function() {
        }
    } );
 
-    // function button to editable mode
-    // enable Edit and AddRow Button
+    // function button to edit row
     $('#edit').click(function() {
         var rowData = table.row('.selected').data()
         if(rowData == null){
-	alert("Select a row to edit!")
+	         alert("Select a row to edit!")
         } else {
           editRow(rowData);
         }
 
     });
 
+    $('#edit').click(function() {
+      $("#addModalForm").modal();
+    });
+
+
 
 
     $('#addWine').click(function() {
         var newID = getCurrentRowCount();
 
-        // Add new temp row to table
-      //  var table = $('#datatable').DataTable();
-    //    var rowNode = table
-      //      .row.add( createTempRecordOnTable(newID) )
-      //      .draw()
-        //    .node();
-      //  $( rowNode )
-        //    .css( 'color', 'red' )
-        //    .animate( { color: 'black' } );
-
-        var testID = 1;
-
-        storeTemp.edit[testID]= { "Name" : "AlterTestwein",
-                                  "Jahrgang" : 2000
-                                }
-
-        $('#saveDB').toggle();
+        storeTemp.add[newID]= { "Name" : "NeuerWein",
+                                  "Jahrgang" : 3213};
+        saveJSON(storeTemp);
       });
 
       $('#edWine').click(function() {
-        //  var newID = getCurrentRowCount();
-
-          // Add new temp row to table
-        //  var table = $('#datatable').DataTable();
-      //    var rowNode = table
-        //      .row.add( createTempRecordOnTable(newID) )
-        //      .draw()
-          //    .node();
-        //  $( rowNode )
-          //    .css( 'color', 'red' )
-          //    .animate( { color: 'black' } );
-
-          var newID = 2;
-
-          storeTemp.add[newID]= { "Name" : "Neuerwein",
-                                    "Jahrgang" : 2323
-                                  }
-
-          $('#saveDB').toggle();
-        });
-
-
-    $('#saveDB').click(function() {
-      saveJSON();
-    });
+        var weinid = 1;
+        var storeTemp = {"edit": []};
+        var storeTemp.edit[weinid] = { "Name" : "AlterTestwein",
+                                        "Jahrgang" : 2000};
+        saveJSON(storeTemp);
+      });
 
     // hide Buttons button
-    $('#saveDB').hide();
+  //  $('#saveDB').hide();
 
 
     //functions
@@ -171,18 +142,19 @@ $(document).ready((function() {
 
 
 
-    function saveJSON() {
+    function saveJSON(storeData) {
         $.ajax({
             url: "modules/storeData.php",
             type: "post",
-            data: storeTemp,
+            data: storeData,
             cache: false,
             success: function(res) {
-                    console.log(res)
+                    console.log(res);
                     },
-            error: function () {
-                $('#status').html('Failed').slideDown();
-            }
+            error : function(data)
+                {
+                console.log(data);
+                }
         });
     }
 
