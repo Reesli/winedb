@@ -136,17 +136,19 @@ $(document).ready((function() {
     function getAddValues() {
         var newID = getMaxID() + 1;
         var newRecord = { 'add' : {}};
-        newRecord['add'][newID] = {'Name':$('#ipName').val(),
-                            'Hersteller':$('#ipHerst').val(),
-                            'Land':$('#ipLand').val(),
-                            'Region':$('#ipReg').val(),
-                            'Weinfarbe':$('#ipFarb').val(),
-                            'Traubensorte':$('#ipSort').val(),
-                            'Jahrgang':$('#ipJahr').val(),
-                            'Anzahl':$('#ipAnz').val(),
-                            'Punkte':$('#ipPun').val(),
-                            'TrinkenAb':$('#ipTAb').val(),
-                            'TrinkenBis':$('#ipTBis').val()}
+        newRecord['add'][newID] = {};
+        newRecord['add']['Name'] = $('#ipName').val();
+        newRecord['Hersteller'] = $('#ipHerst').val();
+        newRecord['Land'] = $('#ipLand').val();
+        newRecord['Region'] = $('#ipReg').val();
+        newRecord['Weinfarbe'] = $('#ipFarb').val();
+        newRecord['Traubensorte'] = $('#ipSort').val();
+        newRecord['Jahrgang'] = $('#ipJahr').val();
+        newRecord['Anzahl'] = $('#ipAnz').val();
+        newRecord['Punkte'] = $('#ipPun').val();
+        newRecord['TrinkenAb'] = $('#ipTAb').val();
+        newRecord['TrinkenBis'] = $('#ipTBis').val();
+
         return newRecord;
       };
 
