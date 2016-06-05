@@ -114,17 +114,17 @@ $(document).ready((function() {
       setTimeout(function(){
           $('#editModalForm').modal('hide');
           table.ajax.reload();}, 1500);
-
     });
 
     $('#showID').click(function() {
-        if($('#showID').hasClass('active')) {
-          $(this).removeClass('active');
-         $('#datatable tr > *:nth-child(0)').hide();
-     } else if (!$('#showID').hasClass('active')) {
-       $(this).addClass('active');
-       $('#datatable tr > *:nth-child(0)').show();
-     }
+      if($('#showID').hasClass('active')) {
+        $(this).removeClass('active');
+        $('#datatable tr > *:nth-child(0)').hide();
+      } else if (!$('#showID').hasClass('active')) {
+        $(this).addClass('active');
+        $('#datatable tr > *:nth-child(0)').show();
+      }
+    });
 
 
 
@@ -135,7 +135,7 @@ $(document).ready((function() {
     }
 
     function getAddValues() {
-        var newID = getMaxID();
+        var newID = getMaxID() + 1;
         var newRecord = { "add" : newID};
         newRecord[newID] = {"Name":$("#ipName").val(),
                             "Hersteller":$("#ipHerst").val(),
