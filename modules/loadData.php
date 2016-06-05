@@ -71,7 +71,9 @@ include ('../resources/eXist.php');
             echo "Error: " . $e->getMessage();
         }
         $xmlLoad = simplexml_load_string($records);
-        $output = json_encode($xmlLoad);
+        $jsonData = json_encode($xmlLoad);
+	# replace empty value brackets {} to "" (workaround)
+        $output = str_replace ( "{}",'""',$jsonData);
         echo $output;
 
 ?>

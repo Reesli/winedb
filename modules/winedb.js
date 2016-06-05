@@ -21,7 +21,7 @@ $(document).ready((function() {
            { "data": "Jahrgang" },
            { "data": "Anzahl" },
            { "data": "Punkte" },
-           { "data": "TrinkenAb.value" },
+           { "data": "TrinkenAb", DefaultContent: '' },
            { "data": "TrinkenBis" },
        ],
      "paging":   false,
