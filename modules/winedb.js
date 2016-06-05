@@ -1,6 +1,6 @@
 $(document).ready((function() {
 
-  // Sort and Filter
+  // Init Datatables plugin and load data from XML DB via loadData.php
   var table = $('#datatable').DataTable({
     "processing": true,
        "serverSide": false,
@@ -37,6 +37,7 @@ $(document).ready((function() {
      ]
   })
 
+  // Buttons section
   $('#datatable tbody').on( 'click', 'tr', function () {
        if ( $(this).hasClass('selected') ) {
            $(this).removeClass('selected');
@@ -59,77 +60,90 @@ $(document).ready((function() {
 
     });
 
+    // Save editForm to XML DB via storeData.php
     $('#editForm').on('submit', function (e) {
-
-         e.preventDefault();
-         var editData = getEditValues();
-         console.log(editData.size)
-         $.ajax({
-           type: 'post',
-           url: 'modules/storeData.php',
-           dataType: 'json',
-           data: editData,
-           success: function () {
-              console.log(editData.edit.Name)
-               console.log(editData.edit.Hersteller)
-           }
-         });
-         setTimeout(function(){
-             $('#editModalForm').modal('hide');
-            table.ajax.reload();}, 1500);
-
+       e.preventDefault();
+       var editData = getEditValues();
+       $.ajax({
+         type: 'post',
+         url: 'modules/storeData.php',
+         dataType: 'json',
+         data: editData,
+         success: function () {
+           // wait 1.5s to be sure that all columns are written
+           // in database before reload table
+           setTimeout(function(){
+               $('#editModalForm').modal('hide');
+               table.ajax.reload();}, 1500);
+         }
        });
+     });
+
+     // Save editForm to XML DB via storeData.php
+     $('#addForm').on('submit', function (e) {
+        e.preventDefault();
+        var addData = getAddValues();
+        $.ajax({
+          type: 'post',
+          url: 'modules/storeData.php',
+          dataType: 'json',
+          data: addData,
+          success: function () {
+            // wait 1.5s to be sure that all columns are written
+            // in database before reload table
+            setTimeout(function(){
+                $('#addModalForm').modal('hide');
+                table.ajax.reload();}, 1500);
+          }
+        });
+      });
 
     $('#addRow').click(function() {
       $("#addModalRow").modal();
       $('#addForm').bootstrapValidator('validate');
     });
 
-    $('#addWine').click(function() {
-        var newID = getCurrentRowCount();
-        saveJSON(storeTemp);
+    $('#delWine').click(function() {
+      var delData = deleteRow();
+      $.ajax({
+        type: 'post',
+        url: 'modules/storeData.php',
+        dataType: 'json',
+        data: delData,
+        success: function () {
+          // wait 1.5s to be sure that all columns are written
+          // in database before reload table
+          setTimeout(function(){
+              $('#editModalForm').modal('hide');
+              table.ajax.reload();}, 1500);
+        }
       });
-
-    // hide Buttons button
-  //  $('#saveDB').hide();
+    });
 
 
-    //functions
-    function fillModalWithRowData(rowData) {
-      $("#edName").val(rowData['Name'])
-      $("#edHerst").val(rowData['Hersteller'])
-      $("#edLand").val(rowData['Land'])
-      $("#edReg").val(rowData['Region'])
-      $("#edFarb").val(rowData['Weinfarbe'])
-      $("#edSort").val(rowData['Traubensorte'])
-      $("#edJahr").val(rowData['Jahrgang'])
-      $("#edAnz").val(rowData['Anzahl'])
-      $("#edPun").val(rowData['Punkte'])
-      $("#edTAb").val(rowData['TrinkenAb'])
-      $("#edTBis").val(rowData['TrinkenBis'])
-      $("#editModalForm").modal()
-    }
 
+    // function section
     function getCurrentRowCount() {
         return document.getElementById("datatable").rows.length;
     }
 
     function getAddValues() {
-        var newRecord = { "Name":document.getElementById('ipName').value,
-                        "Hersteller":document.getElementById('ipHerst').value,
-                        "Land":document.getElementById('ipLand').value,
-                        "Region":document.getElementById('ipReg').value,
-                        "Weinfarbe":document.getElementById('ipFarb').value,
-                        "Traubensorte":document.getElementById('ipSort').value,
-                        "Jahrgang":document.getElementById('ipJahr').value,
-                        "Anzahl":document.getElementById('ipAnz').value,
-                        "Punkte":document.getElementById('ipPun').value,
-                        "TrinkenAb":document.getElementById('ipTAb').value,
-                        "TrinkenBis":document.getElementById('ipTBis').value
-        };
-
+        var newID = getCurrentRowCount();
+        var newRecord = { "add" : newID};
+        newRecord[newID] = {"Name":$("#ipName").val(),
+                            "Hersteller":$("#ipHerst").val(),
+                            "Land":$("#ipLand").val(),
+                            "Region":$("#ipReg").val(),
+                            "Weinfarbe":$("#ipFarb").val(),
+                            "Traubensorte":$("#ipSort").val(),
+                            "Jahrgang":$("#ipJahr").val(),
+                            "Anzahl":$("#ipAnz").val(),
+                            "Punkte":$("#ipPun").val(),
+                            "TrinkenAb":$("#ipTAb").val(),
+                            "TrinkenBis":$("#ipTBis").val()}
         return newRecord;
-    }
+      };
+
     function getEditValues() {
       var rowData = table.row('.selected').data();
       var WeinID = rowData['WeinID'];
@@ -153,25 +167,29 @@ $(document).ready((function() {
          }
       }
       editRecord['size'] = count;
-      console.log(JSON.stringify(editRecord))
       return editRecord;
     }
 
+    function fillModalWithRowData(rowData) {
+      $("#edName").val(rowData['Name']);
+      $("#edHerst").val(rowData['Hersteller']);
+      $("#edLand").val(rowData['Land']);
+      $("#edReg").val(rowData['Region']);
+      $("#edFarb").val(rowData['Weinfarbe']);
+      $("#edSort").val(rowData['Traubensorte']);
+      $("#edJahr").val(rowData['Jahrgang']);
+      $("#edAnz").val(rowData['Anzahl']);
+      $("#edPun").val(rowData['Punkte']);
+      $("#edTAb").val(rowData['TrinkenAb']);
+      $("#edTBis").val(rowData['TrinkenBis']);
+      $("#editModalForm").modal();
+    }
 
-
-    function saveJSON(storeData) {
-        $.ajax({
-            url: "modules/storeData.php",
-            type: "POST",
-            data: storeData,
-            success: function(res) {
-                    console.log(res);
-                    },
-            error : function(data)
-                {
-                console.log(data);
-                }
-        });
+    function deleteRow(){
+      var rowData = table.row('.selected').data();
+      var WeinID = rowData['WeinID'];
+      var editRecord =  {'del': WeinID};
+      return editRecord;
     }
 
     // Validator AddRow
