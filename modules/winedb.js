@@ -61,7 +61,7 @@ $(document).ready((function() {
 
     $('#edWine').click(function() {
       if(getEditValues().length > 0) {
-        console.log(getEditValues().length)
+        console.log(getEditValues().length);
       } else {
         console.log("nix geladen");
       }
