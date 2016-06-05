@@ -21,7 +21,7 @@ $(document).ready((function() {
            { "data": "Jahrgang" },
            { "data": "Anzahl" },
            { "data": "Punkte" },
-           { "data": "TrinkenAb", DefaultContent: '' },
+           { "data": "TrinkenAb"},
            { "data": "TrinkenBis" },
        ],
      "paging":   false,
@@ -119,10 +119,10 @@ $(document).ready((function() {
     $('#showID').click(function() {
       if($('#showID').hasClass('active')) {
         $(this).removeClass('active');
-        $('#datatable tr > *:nth-child(0)').hide();
+        table.column( 0 ).visible( false );
       } else if (!$('#showID').hasClass('active')) {
         $(this).addClass('active');
-        $('#datatable tr > *:nth-child(0)').show();
+        table.column( 0 ).visible( true );
       }
     });
 
