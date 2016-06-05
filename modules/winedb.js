@@ -28,6 +28,7 @@ $(document).ready((function() {
      "ordering": true,
      "order": [[ 5, "asc" ]],
      "info":     false,
+     "Search": "Filter: ",
      "columnDefs": [
          {
              "targets": [ 0 ],
