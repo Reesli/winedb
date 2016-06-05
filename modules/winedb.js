@@ -60,8 +60,9 @@ $(document).ready((function() {
     });
 
     $('#edWine').click(function() {
-      if(getEditValues().length > 0) {
-        console.log(getEditValues().length);
+      var editData = getEditValues();
+      if(editData.length > 0) {
+        console.log(editData.length);
       } else {
         console.log("nix geladen");
       }
