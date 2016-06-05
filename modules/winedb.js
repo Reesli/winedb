@@ -90,7 +90,7 @@ $(document).ready((function() {
        // wait 1.5s to be sure that all columns are written
        // in database before reload table
        setTimeout(function(){
-               $('#editModalForm').modal('hide');
+               $('#addModalForm').modal('hide');
                table.ajax.reload();}, 1500);
 
       });
