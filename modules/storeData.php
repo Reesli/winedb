@@ -33,7 +33,6 @@ include ('../resources/eXist.php');
     $checkOK = true;
     foreach($XQueryUpdate as $xQuery ){
       try{
-        echo $xQuery;
         updateValue($xQuery);
       } catch (Exception $e){
         echo "Error update: " . $e->getMessage();
