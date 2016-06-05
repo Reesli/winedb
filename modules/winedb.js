@@ -117,12 +117,21 @@ $(document).ready((function() {
 
     });
 
+    $('#showID').click(function() {
+        if($('#showID').hasClass('active')) {
+          $(this).removeClass('active');
+         $('#datatable tr > *:nth-child(0)').hide();
+     } else if (!$('#showID').hasClass('active')) {
+       $(this).addClass('active');
+       $('#datatable tr > *:nth-child(0)').show();
+     }
+
 
 
     // function section
     function getMaxID() {
       var colID = table.column( 0 ).data();
-      console.log(Math.max.apply(null,colID));
+      return Math.max.apply(null,colID);
     }
 
     function getAddValues() {
