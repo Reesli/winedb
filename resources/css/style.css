@@ -28,12 +28,16 @@ td {
     margin-left: 10px;
 }
 
-#saveDB {
-    margin-left: 10px;
-}
-
 #addWine {
     margin-right: 10px;
+}
+
+#edWine {
+    margin-right: 10px;
+}
+
+#delWine {
+    margin-right: 30px;
 }
 
 @media (min-width: 1500px) {
