@@ -61,8 +61,7 @@ $(document).ready((function() {
     });
 
     // Save editForm to XML DB via storeData.php
-    $('#editForm').on('submit', function (e) {
-       e.preventDefault();
+    $('#edWine').click(function(){
        var editData = getEditValues();
        $.ajax({
          type: 'post',
@@ -82,9 +81,8 @@ $(document).ready((function() {
       $('#addForm').bootstrapValidator('validate');
     });
 
-    // Save editForm to XML DB via storeData.php
-    $('#addForm').on('submit', function (e) {
-       e.preventDefault();
+    // Save addForm to XML DB via storeData.php
+     $('#addWine').click(function(){
        var addData = getAddValues();
        $.ajax({
          type: 'post',
