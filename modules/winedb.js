@@ -99,6 +99,7 @@ $(document).ready((function() {
       });
 
     $('#addRow').click(function() {
+      getMaxID();
       $("#addModalRow").modal();
       $('#addForm').bootstrapValidator('validate');
     });
@@ -123,12 +124,13 @@ $(document).ready((function() {
 
 
     // function section
-    function getCurrentRowCount() {
-        return document.getElementById("datatable").rows.length;
+    function getMaxID() {
+      var colID = table.column( 0 ).data();
+      consol.log(Math.max.apply(null,colID););
     }
 
     function getAddValues() {
-        var newID = getCurrentRowCount();
+        var newID = getMaxID();
         var newRecord = { "add" : newID};
         newRecord[newID] = {"Name":$("#ipName").val(),
                             "Hersteller":$("#ipHerst").val(),
