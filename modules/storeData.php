@@ -2,7 +2,7 @@
 include ('../resources/eXist.php');
 
     # Update a record/row in XML Wine DB
-    if (!empty($_POST['edit'])) {
+  if (!empty($_POST['edit'])) {
       # Create XQuery Scripts from POST data with title edit
       $XQueryUpdate = createXQueryUpdate($_POST['edit']);
       $XQueryCheckUpdate = createXQueryCheck($_POST['edit']);
@@ -20,10 +20,9 @@ include ('../resources/eXist.php');
         echo "Update XML DB failed";
     }
   }
-
   if (!empty($_POST['del'])) {
     # Create XQuery Scripts from POST data with title add
-    $XQueryDel = createXQueryDel($_POST['del']);
+    $XQueryDel = createXQueryDelete($_POST['del']);
     $XQueryNotCheck = [];
     if(!updateDB($XQueryDel,$XQueryNotCheck)){
         echo "Update XML DB failed";
@@ -34,6 +33,7 @@ include ('../resources/eXist.php');
     $checkOK = true;
     foreach($XQueryUpdate as $xQuery ){
       try{
+        echo $xQuery;
         updateValue($xQuery);
       } catch (Exception $e){
         echo "Error update: " . $e->getMessage();
@@ -88,13 +88,11 @@ include ('../resources/eXist.php');
     return $XQueryStringArray;
   }
 
-  function createXQueryDelete($delArray) {
+  function createXQueryDelete($delID) {
     $XQueryStringArray = [];
-    foreach ($delArray as $id) {
-      array_push($XQueryStringArray,'for $record in doc('."'".'/db/apps/WineDBxml/resources/WeinDB.xml'."'".')//WeinDB '.
-      'where some $id in  $record/@WeinID satisfies $id = "'. $id .'" '.
+      array_push($XQueryStringArray,'for $record in doc('."'".'/db/apps/WineDBxml/resources/WeinDB.xml'."'".')//WeinDB/Wein '.
+      'where some $id in  $record/@WeinID satisfies $id = "'.$delID .'" '.
       'return update delete $record');
-    }
     return $XQueryStringArray;
   }
 
@@ -107,7 +105,7 @@ include ('../resources/eXist.php');
     }
 
     # Set options
-    $db->setDebug(FALSE);
+    $db->setDebug(TRUE);
     $db->setHighlight(FALSE);
     # XQuery execution
     $answer = $db->xquery($xQuery);

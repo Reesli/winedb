@@ -68,15 +68,13 @@ $(document).ready((function() {
          type: 'post',
          url: 'modules/storeData.php',
          dataType: 'json',
-         data: editData,
-         success: function () {
-           // wait 1.5s to be sure that all columns are written
-           // in database before reload table
-           setTimeout(function(){
+         data: editData
+       });
+       // wait 1.5s to be sure that all columns are written
+       // in database before reload table
+       setTimeout(function(){
                $('#editModalForm').modal('hide');
                table.ajax.reload();}, 1500);
-         }
-       });
      });
 
      // Save editForm to XML DB via storeData.php
@@ -87,15 +85,14 @@ $(document).ready((function() {
           type: 'post',
           url: 'modules/storeData.php',
           dataType: 'json',
-          data: addData,
-          success: function () {
-            // wait 1.5s to be sure that all columns are written
-            // in database before reload table
-            setTimeout(function(){
-                $('#addModalForm').modal('hide');
-                table.ajax.reload();}, 1500);
-          }
+          data: addData
         });
+       // wait 1.5s to be sure that all columns are written
+       // in database before reload table
+       setTimeout(function(){
+               $('#editModalForm').modal('hide');
+               table.ajax.reload();}, 1500);
+
       });
 
     $('#addRow').click(function() {
@@ -109,15 +106,14 @@ $(document).ready((function() {
         type: 'post',
         url: 'modules/storeData.php',
         dataType: 'json',
-        data: delData,
-        success: function () {
-          // wait 1.5s to be sure that all columns are written
-          // in database before reload table
-          setTimeout(function(){
-              $('#editModalForm').modal('hide');
-              table.ajax.reload();}, 1500);
-        }
+        data: delData
       });
+      // wait 1.5s to be sure that all columns are written
+      // in database before reload table
+      setTimeout(function(){
+          $('#editModalForm').modal('hide');
+          table.ajax.reload();}, 1500);
+
     });
 
 
