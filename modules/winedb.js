@@ -59,16 +59,25 @@ $(document).ready((function() {
 
     });
 
-    $('#edWine').click(function() {
-      var editData = getEditValues();
-      if(editData.length > 0) {
-        console.log(editData.length);
-      } else {
-        console.log("nix geladen");
-      }
+    $('#editForm').on('submit', function (e) {
 
-      //saveJSON(getEditValues());
-    });
+         e.preventDefault();
+         var editData = getEditValues();
+         if(editData.length > 0) {
+           console.log(editData.length);
+         } else {
+           console.log("nix geladen");
+         }
+        /* $.ajax({
+           type: 'post',
+           url: 'post.php',
+           data: $('form').serialize(),
+           success: function () {
+             alert('form was submitted');
+           }
+         });*/
+
+       });
 
     $('#addRow').click(function() {
       $("#addModalRow").modal();
