@@ -77,29 +77,28 @@ $(document).ready((function() {
                table.ajax.reload();}, 1500);
      });
 
-     // Save editForm to XML DB via storeData.php
-     $('#addForm').on('submit', function (e) {
-        e.preventDefault();
-        var addData = getAddValues();
-        $.ajax({
-          type: 'post',
-          url: 'modules/storeData.php',
-          dataType: 'json',
-          data: addData
-        });
-       // wait 1.5s to be sure that all columns are written
-       // in database before reload table
-       setTimeout(function(){
-               $('#addModalForm').modal('hide');
-               table.ajax.reload();}, 1500);
-
-      });
-
     $('#addRow').click(function() {
-      getMaxID();
-      $("#addModalRow").modal();
+      $("#addModalForm").modal();
       $('#addForm').bootstrapValidator('validate');
     });
+
+    // Save editForm to XML DB via storeData.php
+    $('#addForm').on('submit', function (e) {
+       e.preventDefault();
+       var addData = getAddValues();
+       $.ajax({
+         type: 'post',
+         url: 'modules/storeData.php',
+         dataType: 'json',
+         data: addData
+       });
+      // wait 1.5s to be sure that all columns are written
+      // in database before reload table
+      setTimeout(function(){
+              $('#addModalForm').modal('hide');
+              table.ajax.reload();}, 1500);
+
+     });
 
     $('#delWine').click(function() {
       var delData = deleteRow();
@@ -137,7 +136,7 @@ $(document).ready((function() {
     function getAddValues() {
         var newID = getMaxID() + 1;
         var newRecord = { "add" : newID};
-        newRecord[newID] = {"Name":$("#ipName").val(),
+        newRecord['add'][newID] = {"Name":$("#ipName").val(),
                             "Hersteller":$("#ipHerst").val(),
                             "Land":$("#ipLand").val(),
                             "Region":$("#ipReg").val(),
