@@ -7,11 +7,8 @@ $(document).ready((function() {
        "ajax": {
            "url": "modules/loadData.php",
            "type": "POST",
-           dataSrc: function (json) {
-                   return $.parseJSON(json.d);
-               },
-          "dataType": "json",
-          "contentType": "application/json; charset=utf-8"
+           "dataType": "json",
+           "contentType": "application/json; charset=utf-8"
        },
        "columns": [
            { "data": "WeinID" },
