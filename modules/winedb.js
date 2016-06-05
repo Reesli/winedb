@@ -135,18 +135,18 @@ $(document).ready((function() {
 
     function getAddValues() {
         var newID = getMaxID() + 1;
-        var newRecord = { "add" : newID};
-        newRecord['add'][newID] = {"Name":$("#ipName").val(),
-                            "Hersteller":$("#ipHerst").val(),
-                            "Land":$("#ipLand").val(),
-                            "Region":$("#ipReg").val(),
-                            "Weinfarbe":$("#ipFarb").val(),
-                            "Traubensorte":$("#ipSort").val(),
-                            "Jahrgang":$("#ipJahr").val(),
-                            "Anzahl":$("#ipAnz").val(),
-                            "Punkte":$("#ipPun").val(),
-                            "TrinkenAb":$("#ipTAb").val(),
-                            "TrinkenBis":$("#ipTBis").val()}
+        var newRecord = { 'add' : {}};
+        newRecord['add'][newID] = {'Name':$('#ipName').val(),
+                            'Hersteller':$('#ipHerst').val(),
+                            'Land':$('#ipLand').val(),
+                            'Region':$('#ipReg').val(),
+                            'Weinfarbe':$('#ipFarb').val(),
+                            'Traubensorte':$('#ipSort').val(),
+                            'Jahrgang':$('#ipJahr').val(),
+                            'Anzahl':$('#ipAnz').val(),
+                            'Punkte':$('#ipPun').val(),
+                            'TrinkenAb':$('#ipTAb').val(),
+                            'TrinkenBis':$('#ipTBis').val()}
         return newRecord;
       };
 
