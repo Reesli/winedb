@@ -61,7 +61,7 @@ $(document).ready((function() {
 
     $('#edWine').click(function() {
       if(getEditValues().length > 0) {
-        console.log(getEditValues())
+        console.log(getEditValues().length)
       } else {
         console.log("nix geladen");
       }
@@ -250,10 +250,6 @@ $(document).ready((function() {
                 validators: {
                     notEmpty: {
                         message: 'Der Weinname fehlt.'
-                    },
-                    identical: {
-                        field: 'weinname',
-                        message: 'Keine Änderung.'
                     }
                 }
             },
@@ -261,10 +257,6 @@ $(document).ready((function() {
                 validators: {
                     notEmpty: {
                         message: 'Der Hersteller fehlt.'
-                    },
-                    identical: {
-                        field: 'hersteller',
-                        message: 'Keine Änderung.'
                     }
                 }
             },
@@ -272,10 +264,6 @@ $(document).ready((function() {
                 validators: {
                     notEmpty: {
                         message: 'Das Herstellungsland fehlt.'
-                    },
-                    identical: {
-                        field: 'land',
-                        message: 'Keine Änderung.'
                     }
                 }
             },
@@ -283,18 +271,6 @@ $(document).ready((function() {
                 validators: {
                     notEmpty: {
                         message: 'Die Region fehlt.'
-                    },
-                    identical: {
-                        field: 'region',
-                        message: 'Keine Änderung.'
-                    }
-                }
-            },
-            farbe: {
-                validators: {
-                    identical: {
-                        field: 'farbe',
-                        message: 'Keine Änderung.'
                     }
                 }
             },
@@ -302,10 +278,6 @@ $(document).ready((function() {
                 validators: {
                     notEmpty: {
                         message: 'Die Weinsorte(n) fehlen.'
-                    },
-                    identical: {
-                        field: 'sorte',
-                        message: 'Keine Änderung.'
                     }
                 }
             },
@@ -317,10 +289,6 @@ $(document).ready((function() {
                     greaterThan: {
                         value: 0,
                         message: 'Der Jahrgang muss grösser als 0 sein.'
-                    },
-                    identical: {
-                        field: 'jahr',
-                        message: 'Keine Änderung.'
                     }
                 }
             },
@@ -332,10 +300,6 @@ $(document).ready((function() {
                     greaterThan: {
                         value: -1,
                         message: 'Anzahl Flaschen muss 0 oder grösser sein.'
-                    },
-                    identical: {
-                        field: 'anzahl',
-                        message: 'Keine Änderung.'
                     }
                 }
             },
@@ -345,36 +309,6 @@ $(document).ready((function() {
                         min: 1,
                         max: 10,
                         message: 'Die Punktewertung muss von 1 bis 10 sein.'
-                    },
-                    identical: {
-                        field: 'punkte',
-                        message: 'Keine Änderung.'
-                    }
-                }
-            },
-            trinkenab: {
-                validators: {
-                    between: {
-                        min: 1,
-                        max: 10,
-                        message: 'Die Punktewertung muss von 1 bis 10 sein.'
-                    },
-                    identical: {
-                        field: 'trinkenab',
-                        message: 'Keine Änderung.'
-                    }
-                }
-            },
-            trinkenbis: {
-                validators: {
-                    between: {
-                        min: 1,
-                        max: 10,
-                        message: 'Die Punktewertung muss von 1 bis 10 sein.'
-                    },
-                    identical: {
-                        field: 'trinkenbis',
-                        message: 'Keine Änderung.'
                     }
                 }
             }
