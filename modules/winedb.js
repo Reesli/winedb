@@ -6,7 +6,12 @@ $(document).ready((function() {
        "serverSide": false,
        "ajax": {
            "url": "modules/loadData.php",
-           "type": "POST"
+           "type": "POST",
+           dataSrc: function (json) {
+                   return $.parseJSON(json.d);
+               },
+          "dataType": "json",
+          "contentType": "application/json; charset=utf-8"
        },
        "columns": [
            { "data": "WeinID" },
@@ -19,7 +24,7 @@ $(document).ready((function() {
            { "data": "Jahrgang" },
            { "data": "Anzahl" },
            { "data": "Punkte" },
-           { "data": "TrinkenAb" },
+           { "data": "TrinkenAb.value" },
            { "data": "TrinkenBis" },
        ],
      "paging":   false,
@@ -52,6 +57,7 @@ $(document).ready((function() {
 	         alert("Select a row to edit!")
         } else {
           fillModalWithRowData(rowData);
+          $('#addForm').bootstrapValidator('validate');
         }
 
     });
@@ -98,23 +104,6 @@ $(document).ready((function() {
 
     function getCurrentRowCount() {
         return document.getElementById("datatable").rows.length;
-    }
-
-    function createTempRecordOnTable(newID) {
-        var tableRecord = [newID];
-        tableRecord.push(document.getElementById('ipName').value);
-        tableRecord.push(document.getElementById('ipHerst').value);
-        tableRecord.push(document.getElementById('ipLand').value);
-        tableRecord.push(document.getElementById('ipReg').value);
-        tableRecord.push(document.getElementById('ipFarb').value);
-        tableRecord.push(document.getElementById('ipSort').value);
-        tableRecord.push(document.getElementById('ipJahr').value);
-        tableRecord.push(document.getElementById('ipAnz').value);
-        tableRecord.push(document.getElementById('ipPun').value);
-        tableRecord.push(document.getElementById('ipTAb').value);
-        tableRecord.push(document.getElementById('ipTBis').value);
-
-        return tableRecord;
     }
 
     function getAddValues() {
@@ -254,7 +243,6 @@ $(document).ready((function() {
     // Validator EditRow
     $("#editForm").bootstrapValidator({
         framework: 'bootstrap',
-        excluded: ':disabled',
         icon: {
             valid: 'glyphicon glyphicon-ok',
             invalid: 'glyphicon glyphicon-remove',
@@ -266,7 +254,7 @@ $(document).ready((function() {
                     notEmpty: {
                         message: 'Der Weinname fehlt.'
                     },
-                    different: {
+                    identical: {
                         field: 'weinname',
                         message: 'Keine Änderung.'
                     }
@@ -277,7 +265,7 @@ $(document).ready((function() {
                     notEmpty: {
                         message: 'Der Hersteller fehlt.'
                     },
-                    different: {
+                    identical: {
                         field: 'hersteller',
                         message: 'Keine Änderung.'
                     }
@@ -288,7 +276,7 @@ $(document).ready((function() {
                     notEmpty: {
                         message: 'Das Herstellungsland fehlt.'
                     },
-                    different: {
+                    identical: {
                         field: 'land',
                         message: 'Keine Änderung.'
                     }
@@ -299,7 +287,7 @@ $(document).ready((function() {
                     notEmpty: {
                         message: 'Die Region fehlt.'
                     },
-                    different: {
+                    identical: {
                         field: 'region',
                         message: 'Keine Änderung.'
                     }
@@ -307,7 +295,7 @@ $(document).ready((function() {
             },
             farbe: {
                 validators: {
-                    different: {
+                    identical: {
                         field: 'farbe',
                         message: 'Keine Änderung.'
                     }
@@ -318,7 +306,7 @@ $(document).ready((function() {
                     notEmpty: {
                         message: 'Die Weinsorte(n) fehlen.'
                     },
-                    different: {
+                    identical: {
                         field: 'sorte',
                         message: 'Keine Änderung.'
                     }
@@ -333,7 +321,7 @@ $(document).ready((function() {
                         value: 0,
                         message: 'Der Jahrgang muss grösser als 0 sein.'
                     },
-                    different: {
+                    identical: {
                         field: 'jahr',
                         message: 'Keine Änderung.'
                     }
@@ -348,7 +336,7 @@ $(document).ready((function() {
                         value: -1,
                         message: 'Anzahl Flaschen muss 0 oder grösser sein.'
                     },
-                    different: {
+                    identical: {
                         field: 'anzahl',
                         message: 'Keine Änderung.'
                     }
@@ -361,7 +349,7 @@ $(document).ready((function() {
                         max: 10,
                         message: 'Die Punktewertung muss von 1 bis 10 sein.'
                     },
-                    different: {
+                    identical: {
                         field: 'punkte',
                         message: 'Keine Änderung.'
                     }
@@ -374,7 +362,7 @@ $(document).ready((function() {
                         max: 10,
                         message: 'Die Punktewertung muss von 1 bis 10 sein.'
                     },
-                    different: {
+                    identical: {
                         field: 'trinkenab',
                         message: 'Keine Änderung.'
                     }
@@ -387,7 +375,7 @@ $(document).ready((function() {
                         max: 10,
                         message: 'Die Punktewertung muss von 1 bis 10 sein.'
                     },
-                    different: {
+                    identical: {
                         field: 'trinkenbis',
                         message: 'Keine Änderung.'
                     }
