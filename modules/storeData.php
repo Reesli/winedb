@@ -105,7 +105,7 @@ include ('../resources/eXist.php');
     }
 
     # Set options
-    $db->setDebug(TRUE);
+    $db->setDebug(FALSE);
     $db->setHighlight(FALSE);
     # XQuery execution
     $answer = $db->xquery($xQuery);

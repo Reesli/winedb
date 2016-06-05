@@ -137,17 +137,17 @@ $(document).ready((function() {
         var newID = getMaxID() + 1;
         var newRecord = { 'add' : {}};
         newRecord['add'][newID] = {};
-        newRecord['add'][newID]['Name'] = $('#ipName').val();
-        newRecord['add'][newID]['Hersteller'] = $('#ipHerst').val();
-        newRecord['add'][newID]['Land'] = $('#ipLand').val();
-        newRecord['add'][newID]['Region'] = $('#ipReg').val();
-        newRecord['add'][newID]['Weinfarbe'] = $('#ipFarb').val();
-        newRecord['add'][newID]['Traubensorte'] = $('#ipSort').val();
-        newRecord['add'][newID]['Jahrgang'] = $('#ipJahr').val();
-        newRecord['add'][newID]['Anzahl'] = $('#ipAnz').val();
-        newRecord['add'][newID]['Punkte'] = $('#ipPun').val();
-        newRecord['add'][newID]['TrinkenAb'] = $('#ipTAb').val();
-        newRecord['add'][newID]['TrinkenBis'] = $('#ipTBis').val();
+        newRecord['add'][newID]['Name'] = $('#addName').val();
+        newRecord['add'][newID]['Hersteller'] = $('#addHerst').val();
+        newRecord['add'][newID]['Land'] = $('#addLand').val();
+        newRecord['add'][newID]['Region'] = $('#addReg').val();
+        newRecord['add'][newID]['Weinfarbe'] = $('#addFarb').val();
+        newRecord['add'][newID]['Traubensorte'] = $('#addSort').val();
+        newRecord['add'][newID]['Jahrgang'] = $('#addJahr').val();
+        newRecord['add'][newID]['Anzahl'] = $('#addAnz').val();
+        newRecord['add'][newID]['Punkte'] = $('#addPun').val();
+        newRecord['add'][newID]['TrinkenAb'] = $('#addTAb').val();
+        newRecord['add'][newID]['TrinkenBis'] = $('#addTBis').val();
 
         return newRecord;
       };
