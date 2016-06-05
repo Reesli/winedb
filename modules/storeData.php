@@ -90,7 +90,7 @@ include ('../resources/eXist.php');
 
   function createXQueryDelete($delArray) {
     $XQueryStringArray = [];
-    foreach ($delArray as $id=>$wineAdd) {
+    foreach ($delArray as $id) {
       array_push($XQueryStringArray,'for $record in doc('."'".'/db/apps/WineDBxml/resources/WeinDB.xml'."'".')//WeinDB '.
       'where some $id in  $record/@WeinID satisfies $id = "'. $id .'" '.
       'return update delete $record');
