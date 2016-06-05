@@ -4,12 +4,13 @@ include ('../resources/eXist.php');
     # Update a record/row in XML Wine DB
     if (!empty($_POST['edit'])) {
       # Create XQuery Scripts from POST data with title edit
+      echo count($_POST['edit']);
+      echo $_POST['edit']['Name'];
       $XQueryUpdate = createXQueryUpdate($_POST['edit']);
       $XQueryCheckUpdate = createXQueryCheck($_POST['edit']);
       if(!updateDB($XQueryUpdate,$XQueryCheckUpdate)){
           echo "Some Error while updating";
       }
-      echo "success";
     } else {
       echo "No edit post recieved";
     }
@@ -31,6 +32,7 @@ include ('../resources/eXist.php');
 
 function updateDB($XQueryUpdate,$XQueryCheckUpdate){
   $checkOK = true;
+  echo "update";
   foreach($XQueryUpdate as $xQuery ){
     try{
       updateValue($xQuery);
@@ -81,6 +83,7 @@ function createXQueryCheck($updateArray) {
       # Connect
       if (!$db->connect()) {
         throw new Exception($db->getError());
+        echo "error connect update";
       }
 
       # Set options
@@ -91,6 +94,7 @@ function createXQueryCheck($updateArray) {
       if (!$answer){
         if(!$db->getError() == "ERROR: No data found!"){
           throw new Exception($db->getError());
+          echo "error answer update";
         }
       }
 
@@ -106,6 +110,7 @@ function createXQueryCheck($updateArray) {
 
       if (!$db->connect()) {
           throw new Exception($db->getError());
+          echo "error connect check";
       }
       # Connect
       # XQuery execution
@@ -114,6 +119,7 @@ function createXQueryCheck($updateArray) {
       $answer = $db->xquery($xQuery);
       if (!$answer) {
           throw new Exception($db->getError());
+          echo "error answer check";
       }
 
 

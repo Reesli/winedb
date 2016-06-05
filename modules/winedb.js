@@ -35,7 +35,7 @@ $(document).ready((function() {
              "searchable": false
          }
      ]
-  });
+  })
 
   $('#datatable tbody').on( 'click', 'tr', function () {
        if ( $(this).hasClass('selected') ) {
@@ -49,12 +49,12 @@ $(document).ready((function() {
 
     // function button to edit row
     $('#editRow').click(function() {
+        $('#editForm').bootstrapValidator('resetForm', true);
         var rowData = table.row('.selected').data()
         if(rowData == null){
 	         alert("Select a row to edit!")
         } else {
           fillModalWithRowData(rowData);
-          $('#addForm').bootstrapValidator('validate');
         }
 
     });
@@ -63,19 +63,20 @@ $(document).ready((function() {
 
          e.preventDefault();
          var editData = getEditValues();
-         if(editData.length > 0) {
-           console.log(editData.length);
-         } else {
-           console.log("nix geladen");
-         }
-        /* $.ajax({
+         console.log(editData.size)
+         $.ajax({
            type: 'post',
-           url: 'post.php',
-           data: $('form').serialize(),
+           url: 'modules/storeData.php',
+           dataType: 'json',
+           data: editData,
            success: function () {
-             alert('form was submitted');
+              console.log(editData.edit.Name)
+               console.log(editData.edit.Hersteller)
            }
-         });*/
+         });
+         setTimeout(function(){
+             $('#editModalForm').modal('hide');
+            table.ajax.reload();}, 1500);
 
        });
 
@@ -130,20 +131,30 @@ $(document).ready((function() {
         return newRecord;
     }
     function getEditValues() {
-      var rowData = table.row('.selected').data()
-      var editRecord = {"edit": []}
-      if($("#edName").val() != rowData['Name']){ editRecord['edit'] = {'Name':$("#edName").val()}};
-      if($("#edHerst").val() != rowData['Hersteller']){ editRecord['edit'] = {'Hersteller':$("#edHerst").val()}};
-      if($("#edLand").val() != rowData['Land']){ editRecord['edit'] = {'Land':$("#edLand").val()}};
-      if($("#edReg").val() != rowData['Region']){ editRecord['edit'] = {'Region':$("#edReg").val()}};
-      if($("#edFarb").val() != rowData['Weinfarbe']){ editRecord['edit'] = {'Weinfarbe':$("#edFarb").val()}};
-      if($("#edSort").val() != rowData['Traubensorte']){ editRecord['edit'] = {'Traubensorte':$("#edSort").val()}};
-      if($("#edJahr").val() != rowData['Jahrgang']){ editRecord['edit'] = {'Jahrgang':$("#edJahr").val()}};
-      if($("#edAnz").val() != rowData['Anzahl']){ editRecord['edit'] = {'Anzahl':$("#edAnz").val()}};
-      if($("#edPun").val() != rowData['Punkte']){ editRecord['edit'] = {'Punkte':$("#edPun").val()}};
-      if($("#edTAb").val() != rowData['TrinkenAb']){ editRecord['edit'] = {'TrinkenAb':$("#edTAb").val()}};
-      if($("#edTBis").val() != rowData['TrinkenBis']){ editRecord['edit'] = {'TrinkenBis':$("#edTBis").val()}};
-      return editRecord['edit'];
+      var rowData = table.row('.selected').data();
+      var WeinID = rowData['WeinID'];
+      var editRecord =  {'edit': {}};
+      editRecord['edit'][WeinID] = {};
+      if($("#edName").val() != rowData['Name']){ editRecord['edit'][WeinID]['Name'] = $("#edName").val()};
+      if($("#edHerst").val() != rowData['Hersteller']){ editRecord['edit'][WeinID]['Hersteller'] = $("#edHerst").val()};
+      if($("#edLand").val() != rowData['Land']){ editRecord['edit'][WeinID]['Land'] = $("#edLand").val()};
+      if($("#edReg").val() != rowData['Region']){ editRecord['edit'][WeinID]['Region'] = $("#edReg").val()};
+      if($("#edFarb").val() != rowData['Weinfarbe']){ editRecord['edit'][WeinID]['Weinfarbe'] = $("#edFarb").val()};
+      if($("#edSort").val() != rowData['Traubensorte']){ editRecord['edit'][WeinID]['Traubensorte'] = $("#edSort").val()};
+      if($("#edJahr").val() != rowData['Jahrgang']){ editRecord['edit'][WeinID]['Jahrgang'] = $("#edJahr").val()};
+      if($("#edAnz").val() != rowData['Anzahl']){ editRecord['edit'][WeinID]['Anzahl'] = $("#edAnz").val()};
+      if($("#edPun").val() != rowData['Punkte']){ editRecord['edit'][WeinID]['Punkte'] = $("#edPun").val()};
+      if($("#edTAb").val() != rowData['TrinkenAb']){ editRecord['edit'][WeinID]['TrinkenAb'] = $("#edTAb").val()};
+      if($("#edTBis").val() != rowData['TrinkenBis']){ editRecord['edit'][WeinID]['TrinkenBis'] = $("#edTBis").val()};
+      var key, count = 0;
+      for(key in editRecord['edit'][WeinID]) {
+         if(editRecord['edit'][WeinID].hasOwnProperty(key)) {
+            count++;
+         }
+      }
+      editRecord['size'] = count;
+      console.log(JSON.stringify(editRecord))
+      return editRecord;
     }
 
 
@@ -250,6 +261,7 @@ $(document).ready((function() {
     // Validator EditRow
     $("#editForm").bootstrapValidator({
         framework: 'bootstrap',
+        excluded: ':disabled',
         icon: {
             valid: 'glyphicon glyphicon-ok',
             invalid: 'glyphicon glyphicon-remove',
