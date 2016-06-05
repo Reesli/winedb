@@ -117,16 +117,26 @@ $(document).ready((function() {
 
     });
 
+    $('#showID').click(function() {
+       if($('#showID').hasClass('active')) {
+         $(this).removeClass('active');
+         $('#datatable tr > *:nth-child(0)').hide();
+       } else if (!$('#showID').hasClass('active')) {
+         $(this).addClass('active');
+         $('#datatable tr > *:nth-child(0)').show();
+       }
 
+
+    });
 
     // function section
     function getMaxID() {
       var colID = table.column( 0 ).data();
-      consol.log(Math.max.apply(null,colID););
+      return Math.max.apply(null,colID);
     }
 
     function getAddValues() {
-        var newID = getMaxID();
+        var newID = getMaxID() + 1;
         var newRecord = { "add" : newID};
         newRecord[newID] = {"Name":$("#ipName").val(),
                             "Hersteller":$("#ipHerst").val(),

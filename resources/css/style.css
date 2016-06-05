@@ -41,6 +41,10 @@ td {
     margin-right: 35px;
 }
 
+#showID {
+    margin-left: 30px;
+}
+
 @media (min-width: 1500px) {
     .container {
         width: 1470px;
