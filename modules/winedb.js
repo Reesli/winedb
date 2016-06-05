@@ -122,7 +122,7 @@ $(document).ready((function() {
     // function section
     function getMaxID() {
       var colID = table.column( 0 ).data();
-      consol.log(Math.max.apply(null,colID););
+      console.log(Math.max.apply(null,colID));
     }
 
     function getAddValues() {
