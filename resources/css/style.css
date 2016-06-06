@@ -37,12 +37,16 @@ td {
 }
 
 #delWine {
-    margin-left: 5px;
-    margin-right: 40px;
+    margin-left: 20px;
+    margin-right: 25px;
 }
 
 #showID {
     margin-left: 10px;
+}
+
+table.dataTable {
+    margin-left: 0;
 }
 
 @media (min-width: 1500px) {

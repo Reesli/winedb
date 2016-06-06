@@ -38,7 +38,7 @@ $(document).ready((function() {
      ]
   })
 
-  // Buttons section
+  // Enable "select datatable row"
   $('#datatable tbody').on( 'click', 'tr', function () {
        if ( $(this).hasClass('selected') ) {
            $(this).removeClass('selected');
@@ -47,73 +47,41 @@ $(document).ready((function() {
            table.$('tr.selected').removeClass('selected');
            $(this).addClass('selected');
        }
-   } );
+     });
 
-    // function button to edit row
+    // Click Edit Wine button to start "edit modal form"
     $('#editRow').click(function() {
         $('#editForm').bootstrapValidator('resetForm', true);
         var rowData = table.row('.selected').data()
         if(rowData == null){
-	         alert("Select a row to edit!")
+          bootbox.alert("Select a row to edit!", function() {});
         } else {
           fillModalWithRowData(rowData);
         }
-
     });
 
-    // Save editForm to XML DB via storeData.php
+    // Click Edit button to start post function
     $('#edWine').click(function(){
-       var editData = getEditValues();
-       $.ajax({
-         type: 'post',
-         url: 'modules/storeData.php',
-         dataType: 'json',
-         data: editData
-       });
-       // wait 1.5s to be sure that all columns are written
-       // in database before reload table
-       setTimeout(function(){
-               $('#editModalForm').modal('hide');
-               table.ajax.reload();}, 1500);
+       postEditWine();
      });
 
+    // Click Add Wine button to start "add modal form"
     $('#addRow').click(function() {
       $("#addModalForm").modal();
       $('#addForm').bootstrapValidator('validate');
     });
 
-    // Save addForm to XML DB via storeData.php
+     // Click Add button to start post function
      $('#addWine').click(function(){
-       var addData = getAddValues();
-       $.ajax({
-         type: 'post',
-         url: 'modules/storeData.php',
-         dataType: 'json',
-         data: addData
-       });
-      // wait 1.5s to be sure that all columns are written
-      // in database before reload table
-      setTimeout(function(){
-              $('#addModalForm').modal('hide');
-              table.ajax.reload();}, 1500);
-
+       postAddWine();
      });
 
+    // Click Delete button to get confirm delete
     $('#delWine').click(function() {
-      var delData = deleteRow();
-      $.ajax({
-        type: 'post',
-        url: 'modules/storeData.php',
-        dataType: 'json',
-        data: delData
-      });
-      // wait 1.5s to be sure that all columns are written
-      // in database before reload table
-      setTimeout(function(){
-          $('#editModalForm').modal('hide');
-          table.ajax.reload();}, 1500);
+      confirmDelete();
     });
 
+    // Click Show ID button to show or hide WeinID column
     $('#showID').click(function() {
       if($('#showID').hasClass('active')) {
         $(this).removeClass('active');
@@ -124,14 +92,14 @@ $(document).ready((function() {
       }
     });
 
-
-
-    // function section
+// Add function section
+    // Get highest value in WeinID column
     function getMaxID() {
       var colID = table.column( 0 ).data();
       return Math.max.apply(null,colID);
     }
 
+    // Get values from "add modal form" and put in json
     function getAddValues() {
         var newID = getMaxID() + 1;
         var newRecord = { 'add' : {}};
@@ -151,6 +119,24 @@ $(document).ready((function() {
         return newRecord;
       };
 
+      // Post addForm to XML DB via storeData.php
+      function postAddWine() {
+        var addData = getAddValues();
+        $.ajax({
+          type: 'post',
+          url: 'modules/storeData.php',
+          dataType: 'json',
+          data: addData
+        });
+       // wait 1.5s to be sure that all columns are written
+       // in database before reload table
+       setTimeout(function(){
+               $('#addModalForm').modal('hide');
+               table.ajax.reload();}, 1500);
+      };
+
+// Edit function section
+    // Get updated values from "edit modal form" and put in json
     function getEditValues() {
       var rowData = table.row('.selected').data();
       var WeinID = rowData['WeinID'];
@@ -177,6 +163,7 @@ $(document).ready((function() {
       return editRecord;
     }
 
+    // Fill "edit modal form" with data from selected row
     function fillModalWithRowData(rowData) {
       $("#edName").val(rowData['Name']);
       $("#edHerst").val(rowData['Hersteller']);
@@ -192,12 +179,65 @@ $(document).ready((function() {
       $("#editModalForm").modal();
     }
 
-    function deleteRow(){
+    // Post editForm to XML DB via storeData.php
+    function postEditWine() {
+      var editData = getEditValues();
+      $.ajax({
+        type: 'post',
+        url: 'modules/storeData.php',
+        dataType: 'json',
+        data: editData
+      });
+      // wait 1.5s to be sure that all columns are written
+      // in database before reload table
+      setTimeout(function(){
+              $('#editModalForm').modal('hide');
+              table.ajax.reload();}, 1500);
+    };
+
+// Delete function section
+
+    // Get WeinID from selected row
+    function getIdToDel(){
       var rowData = table.row('.selected').data();
       var WeinID = rowData['WeinID'];
       var editRecord =  {'del': WeinID};
       return editRecord;
     }
+
+    // Show confirm box before post delete
+    function confirmDelete() {
+      bootbox.dialog({
+       title: "Confirm delete",
+         danger: {
+           label: "Cancel",
+           className: "btn-default"
+         },
+         main: {
+           label: "DELETE",
+           className: "btn-danger",
+           callback: function() {
+             postDelWine();
+           }
+         }
+       })
+    };
+
+    // Post ID to delete to XML DB via storeData.php
+    function postDelWine() {
+      var delData = getIdToDel();
+      $.ajax({
+        type: 'post',
+        url: 'modules/storeData.php',
+        dataType: 'json',
+        data: delData
+      });
+      // wait 1.5s to be sure that all columns are written
+      // in database before reload table
+      setTimeout(function(){
+          $('#editModalForm').modal('hide');
+          table.ajax.reload();}, 1500);
+      };
 
     // Validator AddRow
     $("#addForm").bootstrapValidator({
