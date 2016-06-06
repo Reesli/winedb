@@ -64,7 +64,11 @@ $(document).ready((function() {
 
     // Click Edit button to start post function
     $('#edWine').click(function(){
-       postEditWine();
+      var bootstrapValidator = $("#editForm").data('bootstrapValidator');
+      bootstrapValidator.validate();
+      if(bootstrapValidator.isValid()) {
+        postEditWine();
+      }
      });
 
     // Click Add Wine button to start "add modal form"
@@ -80,7 +84,6 @@ $(document).ready((function() {
        if(bootstrapValidator.isValid()) {
          postAddWine();
        }
-
      });
 
     // Click Delete button to get confirm delete
