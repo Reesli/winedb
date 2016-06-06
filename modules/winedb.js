@@ -26,7 +26,7 @@ $(document).ready((function() {
        ],
        "paging": false,
        "ordering": true,
-       "order": [[ 5, "asc" ]],
+       "order": [[ 6, "asc" ]],
        "info": false,
        "language": {
           "search": "Filter: "
