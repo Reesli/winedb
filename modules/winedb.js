@@ -213,7 +213,7 @@ $(document).ready((function() {
       weinName = rowData['Name'];
       bootbox.dialog({
        title: 'Confirm delete',
-       message: 'Der Wein: "' + weinName + 'wird gelöscht!',
+       message: 'Der Wein: "' + weinName + '" wird gelöscht!',
        buttons: {
          cancel: {
            label: 'Cancel',
