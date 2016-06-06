@@ -75,7 +75,12 @@ $(document).ready((function() {
 
      // Click Add button to start post function
      $('#addWine').click(function(){
-       postAddWine();
+       var bootstrapValidator = $("#addForm").data('bootstrapValidator');
+       bootstrapValidator.validate();
+       if(bootstrapValidator.isValid()) {
+         postAddWine();
+       }
+
      });
 
     // Click Delete button to get confirm delete
@@ -196,8 +201,7 @@ $(document).ready((function() {
                 $('#editModalForm').modal('hide');
                 table.ajax.reload();}, 1500);
       } else {
-        bootbox.alert("Hello world!", function() {
-          $('#editModalForm').modal('hide');
+        bootbox.alert("Nothing edited!", function() {
         });
       }
     };
