@@ -24,12 +24,12 @@ $(document).ready((function() {
            { "data": "TrinkenAb"},
            { "data": "TrinkenBis" },
        ],
-     "paging":   false,
-     "ordering": true,
-     "order": [[ 5, "asc" ]],
-     "info":     false,
-     "Search": "Filter: ",
-     "columnDefs": [
+       "paging": false,
+       "ordering": true,
+       "order": [[ 5, "asc" ]],
+       "info": false,
+       "search": "Filter: ",
+       "columnDefs": [
          {
              "targets": [ 0 ],
              "visible": false,
