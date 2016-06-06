@@ -98,6 +98,7 @@ $(document).ready((function() {
     // Get highest value in WeinID column
     function getMaxID() {
       var colID = table.column( 0 ).data();
+      console.log(Math.max.apply(null,colID));
       return Math.max.apply(null,colID);
     }
 
@@ -117,7 +118,7 @@ $(document).ready((function() {
         newRecord['add'][newID]['Punkte'] = $('#addPun').val();
         newRecord['add'][newID]['TrinkenAb'] = $('#addTAb').val();
         newRecord['add'][newID]['TrinkenBis'] = $('#addTBis').val();
-
+        console.log(addData['add'][newID])
         return newRecord;
       };
 

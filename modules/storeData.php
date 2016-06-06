@@ -8,7 +8,7 @@
       $XQueryUpdate = createXQueryUpdate($_POST['edit']);
       $XQueryCheckUpdate = createXQueryCheck($_POST['edit']);
       if(!updateDB($XQueryUpdate,$XQueryCheckUpdate)){
-          echo "Update XML DB failed: Edit POST";
+          echo "[Update XML DB failed: Edit POST]";
       }
     }
 
@@ -18,7 +18,7 @@
     $XQueryAdd = createXQueryAdd($_POST['add']);
     $XQueryCheckAdd = createXQueryCheck($_POST['add']);
     if(!updateDB($XQueryAdd,$XQueryCheckAdd)){
-        echo "Update XML DB failed: Add POST";
+        echo "[Update XML DB failed: Add POST]";
     }
   }
   if (!empty($_POST['del'])) {
@@ -26,14 +26,14 @@
     $XQueryDel = createXQueryDelete($_POST['del']);
     $XQueryNotCheck = [];
     if(!updateDB($XQueryDel,$XQueryNotCheck)){
-        echo "Update XML DB failed: Del POST";
+        echo "[Update XML DB failed: Del POST]";
     }
   }
 
   function updateDB($XQueryUpdate,$XQueryCheckUpdate){
     $checkOK = true;
     if(!empty($XQueryUpdate)){
-       echo "Error Update XQuery Array: ist empty";
+       echo "[Error Update XQuery Array: is empty]";
        return false;
     }
     foreach($XQueryUpdate as $xQuery ){
@@ -41,7 +41,7 @@
         echo  $xQuery;
         updateValue($xQuery);
       } catch (Exception $e){
-        echo "Error update: " . $e->getMessage();
+        echo "[Error update: " . $e->getMessage()."]";
         return false;
       }
     }
@@ -49,7 +49,7 @@
       try {
         $checkOK = checkChangedValue($xQuery,$value);
       } catch (Exception $e){
-        echo "Error check: " . $e->getMessage();
+        echo "[Error check: " . $e->getMessage()."]";
         return false;
       }
     }
@@ -108,7 +108,7 @@
     # Connect
     if (!$db->connect()) {
       throw new Exception($db->getError());
-      echo "error connect update";
+      echo "[Error connect XML DB to update]";
     }
 
     # Set options
@@ -119,12 +119,12 @@
     if (!$answer){
       if(!$db->getError() == "ERROR: No data found!"){
         throw new Exception($db->getError());
-        echo "error answer update";
+        echo "[Error xQuery answer to update]";
       }
     }
 
-     if ($db->disconnect()) {
-        throw new Exception($db->getError());
+    if ($db->disconnect()) {
+      throw new Exception($db->getError());
     }
 
   }
@@ -135,7 +135,7 @@
 
       if (!$db->connect()) {
           throw new Exception($db->getError());
-          echo "error connect check";
+          echo "[Error connect to XML DB to check values]";
       }
       # Connect
       # XQuery execution
@@ -144,9 +144,8 @@
       $answer = $db->xquery($xQuery);
       if (!$answer) {
           throw new Exception($db->getError());
-          echo "error answer check";
+          echo "[Error xQuery answer to check values]";
       }
-
 
       if ($db->disconnect()) {
           throw new Exception($db->getError());
