@@ -209,11 +209,15 @@ $(document).ready((function() {
 
     // Show confirm box before post delete
     function confirmDelete() {
+      $('#editModalForm').modal('hide');
       bootbox.dialog({
        title: "Confirm delete",
          danger: {
            label: "Cancel",
-           className: "btn-default"
+           className: "btn-default",
+           callback: function() {
+             $("#editModalForm").modal();
+           }
          },
          main: {
            label: "DELETE",
