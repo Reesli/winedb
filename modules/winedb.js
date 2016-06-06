@@ -252,6 +252,7 @@ $(document).ready((function() {
     // Validator AddRow
     $("#addForm").bootstrapValidator({
         framework: 'bootstrap',
+        excluded: ':disabled',
         icon: {
             valid: 'glyphicon glyphicon-ok',
             invalid: 'glyphicon glyphicon-remove',
