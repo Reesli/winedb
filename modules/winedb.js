@@ -80,7 +80,7 @@ $(document).ready((function() {
 
     // Click Delete button to get confirm delete
     $('#delWine').click(function() {
-      confirmDelete();
+      confirmDelete(delWine);
     });
 
     // Click Show ID button to show or hide WeinID column
@@ -209,26 +209,28 @@ $(document).ready((function() {
 
     // Show confirm box before post delete
     function confirmDelete() {
-      $('#editModalForm').modal('hide');
-      setTimeout(function(){
-        bootbox.dialog({
-         title: "Confirm delete",
-           danger: {
-             label: "Cancel",
-             className: "btn-default",
-             callback: function() {
-               $("#editModalForm").modal();
-             }
-           },
-           main: {
-             label: "DELETE",
-             className: "btn-danger",
-             callback: function() {
-               postDelWine();
-             }
+      var rowData = table.row('.selected').data();
+      weinName = rowData['Name'];
+      bootbox.dialog({
+       title: 'Confirm delete',
+       message: 'Der Wein: "' + weinName + 'wird gelöscht!',
+       buttons: {
+         cancel: {
+           label: 'Cancel',
+           className: 'btn-default',
+           callback: function() {
+             $('#editModalForm').modal();
            }
-         })
-       }, 1000);
+         },
+         delete: {
+           label: 'DELETE',
+           className: 'btn-danger',
+           callback: function() {
+             postDelWine();
+           }
+       }
+     }
+     })
     };
 
     // Post ID to delete to XML DB via storeData.php
