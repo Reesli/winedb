@@ -210,23 +210,25 @@ $(document).ready((function() {
     // Show confirm box before post delete
     function confirmDelete() {
       $('#editModalForm').modal('hide');
-      bootbox.dialog({
-       title: "Confirm delete",
-         danger: {
-           label: "Cancel",
-           className: "btn-default",
-           callback: function() {
-             $("#editModalForm").modal();
+      setTimeout(function(){
+        bootbox.dialog({
+         title: "Confirm delete",
+           danger: {
+             label: "Cancel",
+             className: "btn-default",
+             callback: function() {
+               $("#editModalForm").modal();
+             }
+           },
+           main: {
+             label: "DELETE",
+             className: "btn-danger",
+             callback: function() {
+               postDelWine();
+             }
            }
-         },
-         main: {
-           label: "DELETE",
-           className: "btn-danger",
-           callback: function() {
-             postDelWine();
-           }
-         }
-       })
+         })
+       }, 1000);
     };
 
     // Post ID to delete to XML DB via storeData.php
