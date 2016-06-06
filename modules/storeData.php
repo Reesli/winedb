@@ -32,7 +32,7 @@
 
   function updateDB($XQueryUpdate,$XQueryCheckUpdate){
     $checkOK = true;
-    if(!empty($XQueryUpdate)){
+    if(empty($XQueryUpdate)){
        echo "[Error Update XQuery Array: is empty]";
        return false;
     }
@@ -59,10 +59,10 @@
   function createXQueryAdd($addArray) {
     $XQueryStringArray = [];
     foreach ($addArray as $id=>$wineAdd) {
-      array_push($XQueryStringArray,'for $record in doc('."'".$DBPath."'".')//WeinDB '.
+      array_push($XQueryStringArray,'for $record in doc('."'".$GLOBALS["DBPath"]."'".')//WeinDB '.
       'return update insert <Wein WeinID="'.$id.'"></Wein> into $record');
       foreach($wineAdd as $key=>$value) {
-        array_push($XQueryStringArray,'for $record in doc('."'".$DBPath."'".')//WeinDB/Wein '.
+        array_push($XQueryStringArray,'for $record in doc('."'".$GLOBALS["DBPath"]."'".')//WeinDB/Wein '.
         'where some $id in  $record/@WeinID satisfies $id  = "'. $id .'" '.
         'return update insert <'.$key.'>'.$value.'</'.$key.'> into $record');
       }
@@ -74,8 +74,8 @@
     $XQueryStringArray = [];
     foreach ($updateArray as $id=>$wineEdit) {
       foreach($wineEdit as $key=>$value) {
-        array_push($XQueryStringArray,'for $record in doc('."'".$DBPath."'".')//WeinDB/Wein '.
-        'where some $id in  $record/@WeinID satisfies $id  = "'. $id .'" '.
+        array_push($XQueryStringArray,'for $record in doc('."'".$GLOBALS["DBPath"]."'".')//WeinDB/Wein '.
+        'where some $id in  $record/@WeinID satisfies $id  = "'.$id.'" '.
         'return update value $record/'.$key.' with "'.$value.'"');
       }
     }
@@ -86,7 +86,7 @@
     $XQueryStringArray = [];
     foreach($checkArray as $id=>$wine) {
       foreach($wine as $key=>$value) {
-        $string = 'for $record in doc('."'".$DBPath."'".')//WeinDB/Wein '.
+        $string = 'for $record in doc('."'".$GLOBALS["DBPath"]."'".')//WeinDB/Wein '.
         'where some $id in  $record/@WeinID satisfies $id = "'. $id .'" '.
         'return $record/'.$key.'/text()';
         $XQueryStringArray[$string] = $value;
@@ -97,7 +97,7 @@
 
   function createXQueryDelete($delID) {
     $XQueryStringArray = [];
-      array_push($XQueryStringArray,'for $record in doc('."'".$DBPath."'".')//WeinDB/Wein '.
+      array_push($XQueryStringArray,'for $record in doc('."'".$GLOBALS["DBPath"]."'".')//WeinDB/Wein '.
       'where some $id in  $record/@WeinID satisfies $id = "'.$delID .'" '.
       'return update delete $record');
     return $XQueryStringArray;
@@ -107,19 +107,19 @@
     $db = new eXist('webmoder', 'Test2016', 'http://localhost:8080/exist/services/Query?wsdl');
     # Connect
     if (!$db->connect()) {
-      throw new Exception($db->getError());
       echo "[Error connect XML DB to update]";
+      throw new Exception($db->getError());
     }
 
     # Set options
-    $db->setDebug(FALSE);
+    $db->setDebug(TRUE);
     $db->setHighlight(FALSE);
     # XQuery execution
     $answer = $db->xquery($xQuery);
     if (!$answer){
       if(!$db->getError() == "ERROR: No data found!"){
-        throw new Exception($db->getError());
         echo "[Error xQuery answer to update]";
+        throw new Exception($db->getError());
       }
     }
 
@@ -134,8 +134,8 @@
       $db = new eXist('webmoder', 'Test2016', 'http://localhost:8080/exist/services/Query?wsdl');
 
       if (!$db->connect()) {
-          throw new Exception($db->getError());
           echo "[Error connect to XML DB to check values]";
+          throw new Exception($db->getError());
       }
       # Connect
       # XQuery execution
@@ -143,8 +143,8 @@
       $db->setHighlight(FALSE);
       $answer = $db->xquery($xQuery);
       if (!$answer) {
-          throw new Exception($db->getError());
           echo "[Error xQuery answer to check values]";
+          throw new Exception($db->getError());
       }
 
       if ($db->disconnect()) {

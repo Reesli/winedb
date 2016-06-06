@@ -118,7 +118,7 @@ $(document).ready((function() {
         newRecord['add'][newID]['Punkte'] = $('#addPun').val();
         newRecord['add'][newID]['TrinkenAb'] = $('#addTAb').val();
         newRecord['add'][newID]['TrinkenBis'] = $('#addTBis').val();
-        console.log(addData['add'][newID])
+        console.log(newRecord)
         return newRecord;
       };
 
