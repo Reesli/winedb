@@ -1,8 +1,8 @@
 <?php
-include ('../resources/eXist.php');
-
+  include ('../resources/eXist.php');
+  $DBPath = '/db/apps/WineDB/WeinDB.xml'
         $query = '
-        for $record in doc('."'".'/db/apps/WineDBxml/resources/WeinDB.xml'."'".')//WeinDB/Wein
+        for $record in doc('."'".$DBPath."'".')//WeinDB/Wein
         let $id := $record/@WeinID/string()
         let $name := $record/Name
         let $herst := $record/Hersteller
@@ -15,7 +15,7 @@ include ('../resources/eXist.php');
         let $punkte := $record/Punkte
         let $ab := $record/TrinkenAb
         let $bis := $record/TrinkenBis
-        return 
+        return
         <data>
             <WeinID>{$id}</WeinID>
             {$name}

@@ -1,6 +1,6 @@
 <?php
-include ('../resources/eXist.php');
-
+  include ('../resources/eXist.php');
+  $DBPath = '/db/apps/WineDB/WeinDB.xml'
     # Update a record/row in XML Wine DB
   if (!empty($_POST['edit'])) {
       # Create XQuery Scripts from POST data with title edit
@@ -51,10 +51,10 @@ include ('../resources/eXist.php');
   function createXQueryAdd($addArray) {
     $XQueryStringArray = [];
     foreach ($addArray as $id=>$wineAdd) {
-      array_push($XQueryStringArray,'for $record in doc('."'".'/db/apps/WineDBxml/resources/WeinDB.xml'."'".')//WeinDB '.
+      array_push($XQueryStringArray,'for $record in doc('."'".$DBPath."'".')//WeinDB '.
       'return update insert <Wein WeinID="'.$id.'"></Wein> into $record');
       foreach($wineAdd as $key=>$value) {
-        array_push($XQueryStringArray,'for $record in doc('."'".'/db/apps/WineDBxml/resources/WeinDB.xml'."'".')//WeinDB/Wein '.
+        array_push($XQueryStringArray,'for $record in doc('."'".$DBPath."'".')//WeinDB/Wein '.
         'where some $id in  $record/@WeinID satisfies $id  = "'. $id .'" '.
         'return update insert <'.$key.'>'.$value.'</'.$key.'> into $record');
       }
@@ -66,7 +66,7 @@ include ('../resources/eXist.php');
     $XQueryStringArray = [];
     foreach ($updateArray as $id=>$wineEdit) {
       foreach($wineEdit as $key=>$value) {
-        array_push($XQueryStringArray,'for $record in doc('."'".'/db/apps/WineDBxml/resources/WeinDB.xml'."'".')//WeinDB/Wein '.
+        array_push($XQueryStringArray,'for $record in doc('."'".$DBPath."'".')//WeinDB/Wein '.
         'where some $id in  $record/@WeinID satisfies $id  = "'. $id .'" '.
         'return update value $record/'.$key.' with "'.$value.'"');
       }
@@ -78,7 +78,7 @@ include ('../resources/eXist.php');
     $XQueryStringArray = [];
     foreach($checkArray as $id=>$wine) {
       foreach($wine as $key=>$value) {
-        $string = 'for $record in doc('."'".'/db/apps/WineDBxml/resources/WeinDB.xml'."'".')//WeinDB/Wein '.
+        $string = 'for $record in doc('."'".$DBPath."'".')//WeinDB/Wein '.
         'where some $id in  $record/@WeinID satisfies $id = "'. $id .'" '.
         'return $record/'.$key.'/text()';
         $XQueryStringArray[$string] = $value;
@@ -89,7 +89,7 @@ include ('../resources/eXist.php');
 
   function createXQueryDelete($delID) {
     $XQueryStringArray = [];
-      array_push($XQueryStringArray,'for $record in doc('."'".'/db/apps/WineDBxml/resources/WeinDB.xml'."'".')//WeinDB/Wein '.
+      array_push($XQueryStringArray,'for $record in doc('."'".$DBPath."'".')//WeinDB/Wein '.
       'where some $id in  $record/@WeinID satisfies $id = "'.$delID .'" '.
       'return update delete $record');
     return $XQueryStringArray;
