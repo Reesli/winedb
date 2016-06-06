@@ -69,8 +69,8 @@ $(document).ready((function() {
 
     // Click Add Wine button to start "add modal form"
     $('#addRow').click(function() {
+      $('#addForm').bootstrapValidator('resetForm', true);
       $("#addModalForm").modal();
-      $('#addForm').bootstrapValidator('validate');
     });
 
      // Click Add button to start post function
@@ -98,7 +98,6 @@ $(document).ready((function() {
     // Get highest value in WeinID column
     function getMaxID() {
       var colID = table.column( 0 ).data();
-      console.log(Math.max.apply(null,colID));
       return Math.max.apply(null,colID);
     }
 
@@ -118,7 +117,6 @@ $(document).ready((function() {
         newRecord['add'][newID]['Punkte'] = $('#addPun').val();
         newRecord['add'][newID]['TrinkenAb'] = $('#addTAb').val();
         newRecord['add'][newID]['TrinkenBis'] = $('#addTBis').val();
-        console.log(newRecord)
         return newRecord;
       };
 
@@ -185,17 +183,23 @@ $(document).ready((function() {
     // Post editForm to XML DB via storeData.php
     function postEditWine() {
       var editData = getEditValues();
-      $.ajax({
-        type: 'post',
-        url: 'modules/storeData.php',
-        dataType: 'json',
-        data: editData
-      });
-      // wait 1.5s to be sure that all columns are written
-      // in database before reload table
-      setTimeout(function(){
-              $('#editModalForm').modal('hide');
-              table.ajax.reload();}, 1500);
+      if(editData['size'] > 0) {
+        $.ajax({
+          type: 'post',
+          url: 'modules/storeData.php',
+          dataType: 'json',
+          data: editData
+        });
+        // wait 1.5s to be sure that all columns are written
+        // in database before reload table
+        setTimeout(function(){
+                $('#editModalForm').modal('hide');
+                table.ajax.reload();}, 1500);
+      } else {
+        bootbox.alert("Hello world!", function() {
+          $('#editModalForm').modal('hide');
+        });
+      }
     };
 
 // Delete function section
