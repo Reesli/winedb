@@ -1,6 +1,7 @@
 <?php
   include ('../resources/eXist.php');
-  $DBPath = '/db/apps/WineDB/WeinDB.xml'
+  $DBPath = '/db/apps/WineDB/WeinDB.xml';
+  
     # Update a record/row in XML Wine DB
   if (!empty($_POST['edit'])) {
       # Create XQuery Scripts from POST data with title edit
