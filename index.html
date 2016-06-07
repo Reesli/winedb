@@ -3,14 +3,20 @@
 <head>
     <title>WineDB</title>
     <meta charset="utf-8">
+    <!-- Bootstrap-3 -->
     <link rel="stylesheet" type="text/css" href="resources/Bootstrap-3.3.6/css/bootstrap.min.css"/>
-    <script type="text/javascript" src="resources/jQuery-2.2.3/jquery-2.2.3.min.js"></script>
     <script type="text/javascript" src="resources/Bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <!-- jQuery-2 -->
+    <script type="text/javascript" src="resources/jQuery-2.2.3/jquery-2.2.3.min.js"></script>
+    <!-- Bootbox -->
     <script type="text/javascript" src="resources/bootbox/bootbox.min.js"></script>
-    <script src="resources/DataTables-1.10.12/js/jquery.dataTables.min.js"></script>
+    <!-- DataTables-1 -->
+    <script type="text/javascript" src="resources/DataTables-1.10.12/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" type="text/css" href="resources/DataTables-1.10.12/css/jquery.dataTables.min.css">
+    <!-- bootstrapValidator 0.5 -->
     <script src="resources/bootstrap-validator/js/bootstrapValidator.min.js"></script>
     <link rel="stylesheet" type="text/css" href="resources/bootstrap-validator/css/bootstrapValidator.min.css"/>
+    <!-- Controll and styling of WineDB -->
     <script type="text/javascript" src="modules/winedb.js"></script>
     <link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
 </head>
@@ -31,7 +37,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                        <a href="https://www.resgear.ch/gallery3/" class="dropdown-toggle" data-toggle="dropdown">Gallery <b class="caret"></b></a>
+                        <a href="https://www.resgear.ch/gallery3/" class="dropdown-toggle" data-toggle="dropdown">Gallery<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="https://gallery.resgear.ch/identification.php">Gallery Private</a>
@@ -51,7 +57,7 @@
                                 <a href="https://cloud.resgear.ch/">Cloud Filer</a>
                             </li>
                             <li>
-                                <a href="http://winedb.resgear.ch/">WineDB</a>
+                                <a href="http://winedb.resgear.ch/">WeinDB</a>
                             </li>
                         </ul>
                     </li>
@@ -66,13 +72,13 @@
     <div class="container">
       <div class="row">
           <div style="float: left; margin-bottom: 10px">
-              <button class="btn btn-warning" id="editRow">Edit Wine</button>
+              <button class="btn btn-warning" id="editRow">Editiere Wein</button>
           </div>
           <div style="float: left">
-              <button class="btn btn-success" id="addRow">Add Wine</button>
+              <button class="btn btn-success" id="addRow">Füge Wein hinzu</button>
           </div>
           <div style="float: left">
-              <button class="btn btn-info" id="showID">Show ID</button>
+              <button class="btn btn-info" id="showID">Zeige Wein ID</button>
           </div>
           <div class="table-responsive" id="tableDiv">
               <table class="table" id="datatable">
@@ -80,7 +86,7 @@
                     <th>ID</th>
                     <th>Weinname</th>
                     <th>Hersteller</th>
-                    <th>Herstellungsland</th>
+                    <th>Land</th>
                     <th>Region</th>
                     <th>Traubensorte(n)</th>
 	                  <th>Weinfarbe</th>
@@ -104,7 +110,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title">Add Wine</h4>
+                        <h4 class="modal-title">Wein hinzufügen Wine</h4>
                     </div>
                     <div class="modal-body">
                         <form id="addForm" method="post" class="form-horizontal">
@@ -133,6 +139,12 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-xs-3 control-label">Traubensorte(n)</label>
+                                <div class="col-xs-5">
+                                    <input type="text" class="form-control" name="sorte" id="addSort"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-xs-3 control-label">Weinfarbe</label>
                                 <div class="col-xs-5">
                                     <select class="form-control" name="farbe" id="addFarb">
@@ -140,12 +152,6 @@
                                         <option value="Rot">Rot</option>
                                         <option value="Weiss">Weiss</option>
                                     </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-xs-3 control-label">Weinsorte</label>
-                                <div class="col-xs-5">
-                                    <input type="text" class="form-control" name="sorte" id="addSort"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -180,8 +186,8 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-5 col-xs-offset-3">
-                                    <button type="button" id="addWine" class="btn btn-success">Add</button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                    <button type="button" id="addWine" class="btn btn-success">Hinzufügen</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
                                 </div>
                             </div>
                         </form>
@@ -225,6 +231,12 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-xs-3 control-label">Traubensorte(n)</label>
+                                <div class="col-xs-5">
+                                    <input type="text" class="form-control" name="sorte" id="edSort"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-xs-3 control-label">Weinfarbe</label>
                                 <div class="col-xs-5">
                                     <select class="form-control" name="farbe" id="edFarb">
@@ -232,12 +244,6 @@
                                         <option value="Rot">Rot</option>
                                         <option value="Weiss">Weiss</option>
                                     </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-xs-3 control-label">Weinsorte</label>
-                                <div class="col-xs-5">
-                                    <input type="text" class="form-control" name="sorte" id="edSort"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -272,9 +278,9 @@
                             </div>
                             <div class="form-group">
                               <div class="col-xs-8 col-xs-offset-0">
-                                  <button type="button" id="delWine" class="btn btn-danger">Delete Row</button>
-                                  <button type="button" id="edWine" class="btn btn-warning">Edit</button>
-                                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                  <button type="button" id="delWine" class="btn btn-danger">Lösche Wein</button>
+                                  <button type="button" id="edWine" class="btn btn-warning">Editiere</button>
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
                               </div>
                             </div>
                         </form>
