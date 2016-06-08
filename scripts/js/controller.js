@@ -194,7 +194,7 @@ $(document).ready((function() {
       if(editData['size'] > 0) {
         $.ajax({
           type: 'post',
-          url: 'modules/storeData.php',
+          url: '../scripts/php/storeData.php',
           dataType: 'json',
           data: editData
         });
@@ -250,7 +250,7 @@ $(document).ready((function() {
       var delData = getIdToDel();
       $.ajax({
         type: 'post',
-        url: 'modules/storeData.php',
+        url: '../scripts/php/storeData.php',
         dataType: 'json',
         data: delData
       });
