@@ -5,7 +5,7 @@ $(document).ready((function() {
     "processing": true,
        "serverSide": false,
        "ajax": {
-           "url": "modules/loadData.php",
+           "url": "../scripts/php/loadData.php",
            "type": "POST",
            "dataType": "json",
            "contentType": "application/json; charset=utf-8"
@@ -133,7 +133,7 @@ $(document).ready((function() {
         var addData = getAddValues();
         $.ajax({
           type: 'post',
-          url: 'modules/storeData.php',
+          url: '../scripts/php/storeData.php',
           dataType: 'json',
           data: addData
         });

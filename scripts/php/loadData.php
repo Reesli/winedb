@@ -1,7 +1,7 @@
 <?php
-  include ('../resources/eXist.php');
+  include ('../../plugins/Phexistdb/eXist.php');
   $DBPath = '/db/apps/WineDB/WeinDB.xml';
-  
+
         $query = '
         for $record in doc('."'".$DBPath."'".')//WeinDB/Wein
         let $id := $record/@WeinID/string()

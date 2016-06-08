@@ -1,5 +1,5 @@
 <?php
-  include ('../resources/eXist.php');
+  include ('../../plugins/Phexistdb/eXist.php');
   $DBPath = '/db/apps/WineDB/WeinDB.xml';
 
     # Update a record/row in XML Wine DB
