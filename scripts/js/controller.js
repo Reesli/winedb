@@ -236,18 +236,18 @@ $(document).ready((function() {
       var rowData = table.row('.selected').data();
       weinName = rowData['Name'];
       bootbox.dialog({
-       title: 'Confirm delete',
-       message: 'Der Wein: "' + weinName + '" wird gelöscht!',
+       title: 'Löschung bestätigen',
+       message: 'Achtung: Der Wein "' + weinName + '" wird endgültig gelöscht!',
        buttons: {
          cancel: {
-           label: 'Cancel',
+           label: 'Abbrechen',
            className: 'btn-default',
            callback: function() {
              $('#editModalForm').modal();
            }
          },
          delete: {
-           label: 'DELETE',
+           label: 'LÖSCHEN',
            className: 'btn-danger',
            callback: function() {
              postDelWine();
