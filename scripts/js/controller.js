@@ -36,9 +36,18 @@ $(document).ready((function() {
              "targets": [ 0 ],
              "visible": false,
              "searchable": false
+         },
+         {
+            "targets": [ 5 ],
+            "className": "sorteTD"
          }
      ]
   })
+
+  // Add line breaks in Traubensorte column, if comma detected
+  var text = $('.sorteTD').text();
+  var breaked = text.replace(/\,/g, ',</br>');
+  $('.sorteTD').html(breaked);
 
   // Enable "select datatable row"
   $('#datatable tbody').on( 'click', 'tr', function () {
