@@ -47,9 +47,10 @@ $(document).ready((function() {
   // Add line breaks in Traubensorte column, if comma detected
   $('.sorteTD').each( function() {
       var getContent = $(this).text();
-      var breakString = getContent.replace(",", ",<br/>");
+      var breakString = getContent.replace(/,/g,",<br/>");
       $(this).html(breakString);
     });
+  table.columns.adjust().draw();
 
   // Enable "select datatable row"
   $('#datatable tbody').on( 'click', 'tr', function () {
