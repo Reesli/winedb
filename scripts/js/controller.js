@@ -49,7 +49,7 @@ $(document).ready((function() {
       var getContent = $(this).text();
       var breakString = getContent.replace(",", ",<br/>");
       $(this).html(breakString);
-    )};
+    });
 
   // Enable "select datatable row"
   $('#datatable tbody').on( 'click', 'tr', function () {
