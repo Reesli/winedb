@@ -49,7 +49,6 @@ $(document).ready((function() {
               var breakString = getContent.replace(/,/g,",<br/>");
               $(this).html(breakString);
             });
-          $(this).columns.adjust().draw();
      }
   })
 
