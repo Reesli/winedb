@@ -41,7 +41,16 @@ $(document).ready((function() {
             "targets": [ 5 ],
             "className": "sorteTD"
          }
-     ]
+     ],
+     "drawCallback": function(settings) {
+          // Add line breaks in Traubensorte column, if comma detected
+          $('.sorteTD').each( function() {
+              var getContent = $(this).text();
+              var breakString = getContent.replace(/,/g,",<br/>");
+              $(this).html(breakString);
+            });
+          $(this).columns.adjust().draw();
+     }
   })
 
   // Enable "select datatable row"
@@ -105,14 +114,6 @@ $(document).ready((function() {
         table.column( 0 ).visible( true );
       }
     });
-
-  // Add line breaks in Traubensorte column, if comma detected
-  $('.sorteTD').each( function() {
-      var getContent = $(this).text();
-      var breakString = getContent.replace(/,/g,",<br/>");
-      $(this).html(breakString);
-    });
-  table.columns.adjust().draw();
 
 // Add function section
     // Get highest value in WeinID column
